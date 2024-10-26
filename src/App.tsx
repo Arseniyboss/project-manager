@@ -1,31 +1,26 @@
-import { DragDropContext } from 'react-beautiful-dnd'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useTheme } from './hooks/useTheme'
-import { useTaskContext } from './hooks/useTaskContext'
-import { Container, Header, BoardContainer } from './styles'
+import { useSidebarContext } from './hooks/useSidebarContext'
+import { Container } from './styles'
 import GlobalStyle from './GlobalStyle'
-import ThemeSwitcher from './components/theme-switcher/ThemeSwitcher'
-import BoardColumn from './components/board-column/BoardColumn'
+import Sidebar from './components/sidebar/Sidebar'
+import Board from './pages/board/Board'
+import NotFound from './pages/NotFound'
 
 const App = () => {
   const { themeStyles } = useTheme()
-  const { statuses, handleDrag } = useTaskContext()
+  const { isSidebarOpen } = useSidebarContext()
   return (
-    <>
+    <Router>
       <GlobalStyle themeStyles={themeStyles} />
       <Container>
-        <Header>
-          <h1>Task Manager</h1>
-          <ThemeSwitcher />
-        </Header>
-        <BoardContainer>
-          <DragDropContext onDragEnd={handleDrag}>
-            {statuses.map((status, index) => (
-              <BoardColumn key={index} status={status} />
-            ))}
-          </DragDropContext>
-        </BoardContainer>
+        {isSidebarOpen && <Sidebar />}
+        <Routes>
+          <Route path='/board/:id' element={<Board />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
       </Container>
-    </>
+    </Router>
   )
 }
 

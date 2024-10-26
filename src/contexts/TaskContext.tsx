@@ -2,6 +2,7 @@ import { ReactNode, createContext, useState } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import { TaskContextType, Task, Status, CurrentStatus } from '@/types/task'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { useBoardContext } from '@/hooks/useBoardContext'
 
 type Props = {
   children: ReactNode
@@ -16,14 +17,27 @@ export const TaskContextProvider = ({ children }: Props) => {
   const [isAdding, setIsAdding] = useState<boolean>(false)
   const [currentStatus, setCurrentStatus] = useState<CurrentStatus>('')
 
+  const { isAllTasksBoard } = useBoardContext()
+
   const isCurrentColumn = (status: Status) => {
     return status === currentStatus
   }
 
+  const filterTasks = (status: Status, boardId?: string) => {
+    return tasks.filter((task) => {
+      const matchesBoard = boardId ? task.boardId === boardId : true
+      return matchesBoard && task.status === status
+    })
+  }
+
+  const getBoardColumnTasks = (boardId: string, status: Status) => {
+    return isAllTasksBoard(boardId) ? filterTasks(status) : filterTasks(status, boardId)
+  }
+
   const dragTask = (task: Task, newStatus: Status, newIndex: number) => {
     const reorderedTasks = [...tasks]
-    const filteredTasks = filterTasks(newStatus)
-    const updatedTask = filteredTasks[newIndex]
+    const boardColumnTasks = getBoardColumnTasks(task.boardId, newStatus)
+    const updatedTask = boardColumnTasks[newIndex]
     const draggableTaskIndex = tasks.findIndex(({ id }) => id === task.id)
     const updatedTaskIndex = tasks.findIndex(({ id }) => id === updatedTask.id)
     // remove a task from the column from which it is being dragged
@@ -61,12 +75,17 @@ export const TaskContextProvider = ({ children }: Props) => {
     setCurrentStatus(status)
   }
 
-  const addTask = (title: string, status: Status) => {
-    setTasks([...tasks, { id: crypto.randomUUID(), title, status }])
+  const addTask = (boardId: string, title: string, status: Status) => {
+    setTasks([...tasks, { id: crypto.randomUUID(), boardId, title, status }])
   }
 
   const deleteTask = (id: string) => {
     const filteredTasks = tasks.filter((task) => task.id !== id)
+    setTasks(filteredTasks)
+  }
+
+  const deleteBoardTasks = (boardId: string) => {
+    const filteredTasks = tasks.filter((task) => task.boardId !== boardId)
     setTasks(filteredTasks)
   }
 
@@ -77,10 +96,6 @@ export const TaskContextProvider = ({ children }: Props) => {
     setTasks(updatedTasks)
   }
 
-  const filterTasks = (status: Status) => {
-    return tasks.filter((task) => task.status === status)
-  }
-
   const value = {
     statuses,
     tasks,
@@ -89,10 +104,11 @@ export const TaskContextProvider = ({ children }: Props) => {
     setIsAdding,
     handleAdd,
     handleDrag,
+    getBoardColumnTasks,
     addTask,
     deleteTask,
+    deleteBoardTasks,
     editTask,
-    filterTasks,
   }
 
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>

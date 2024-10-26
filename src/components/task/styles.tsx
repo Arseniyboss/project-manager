@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import { ThemeStyles } from '@/types/theme'
 
-type CardProps = {
+type Props = {
   $themeStyles: ThemeStyles
 }
 
-export const Card = styled.li<CardProps>`
+export const Card = styled.li<Props>`
   background: ${({ $themeStyles }) => $themeStyles.cardColor};
   list-style-type: none;
   display: flex;
@@ -14,17 +14,8 @@ export const Card = styled.li<CardProps>`
   border-radius: 0.25rem;
   padding: 1rem;
   margin-bottom: 0.75rem;
-`
 
-export const TextArea = styled.textarea`
-  border: none;
-  outline: none;
-  color: inherit;
-  background: inherit;
-  font-size: inherit;
-  font-family: inherit;
-  resize: none;
-  overflow-y: hidden;
-  width: 90%;
-  line-height: 1.17;
+  textarea {
+    width: 90%;
+  }
 `

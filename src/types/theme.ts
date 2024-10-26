@@ -5,6 +5,8 @@ export type ThemeStyles = {
   color: string
   columnColor: string
   cardColor: string
+  sidebarColor: string
+  currentBoardColor: string
 }
 
 export type Themes = Record<Theme, ThemeStyles>

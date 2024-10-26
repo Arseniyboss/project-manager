@@ -7,7 +7,7 @@ import { useAutoResizeTextarea } from '@/hooks/useAutosizeTextArea'
 import { useUpdateEffect } from '@/hooks/useUpdateEffect'
 import { Task as TaskProps } from '@/types/task'
 import { Button } from '@/styles'
-import { Card, TextArea } from './styles'
+import { Card } from './styles'
 
 type Props = TaskProps & DraggableProvided
 
@@ -40,21 +40,21 @@ const Task = (props: Props) => {
       {...draggableProps}
       ref={innerRef}
       $themeStyles={themeStyles}
-      data-testid='task'
+      data-testid="task"
     >
-      <TextArea
+      <textarea
         value={task}
         ref={textareaRef}
         rows={1}
         onChange={(e) => setTask(e.target.value)}
         onKeyDown={handleEnter}
-        aria-label='edit task input'
-        data-testid='edit-task-input'
+        aria-label="edit task input"
+        data-testid="edit-task-input"
       />
       <Button
         onClick={() => deleteTask(id)}
-        aria-label='delete task'
-        data-testid='delete-task-button'
+        aria-label="delete task"
+        data-testid="delete-task-button"
       >
         <FaTrashAlt />
       </Button>

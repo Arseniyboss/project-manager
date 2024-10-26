@@ -13,13 +13,41 @@ const GlobalStyle = createGlobalStyle<Props>`
   }
 
   body {
+    overscroll-behavior: none;
     font-family: Arial, Helvetica, sans-serif;
     background: ${({ themeStyles }) => themeStyles.background};
     color: ${({ themeStyles }) => themeStyles.color};
   }
-  
-  h1 {
-    text-align: center;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: inherit;
+  }
+
+  ul {
+    height: 100%;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  input, textarea {
+    border: none;
+    outline: none;
+    color: inherit;
+    background: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    resize: none;
+    overflow-y: hidden;
+    line-height: 1.17;
+  }
+
+  .sidebarIcon {
+    font-size: 1.5rem;
   }
 `
 

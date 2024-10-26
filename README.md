@@ -1,8 +1,8 @@
-# Task Manager
+# Project Manager
 
 ## Description
 
-Task manager built with React
+Project manager built with React
 
 ## Technologies
 
@@ -24,9 +24,15 @@ Task manager built with React
 
 ## Features
 
+- Add boards
+- Edit boards
+- Delete boards
+- Reorder boards
+- Autosave boards in localStorage
 - Add tasks
 - Delete tasks
 - Edit tasks
 - Reorder tasks
 - Drag and drop tasks between columns
 - Autosave tasks in localStorage
+- Dark Theme

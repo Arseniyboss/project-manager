@@ -1,8 +1,9 @@
 beforeEach(() => {
   cy.visit('/')
+  cy.addBoard('General')
 })
 
-describe('Task Manager', () => {
+describe('Project Manager', () => {
   it('should add a task to all columns', () => {
     cy.getByTestId('add-task-button').each((element, index) => {
       cy.wrap(element).click()

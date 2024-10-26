@@ -3,21 +3,22 @@ import { useTheme } from '@/hooks/useTheme'
 import { useTaskContext } from '@/hooks/useTaskContext'
 import { useAutoResizeTextarea } from '@/hooks/useAutosizeTextArea'
 import { Status } from '@/types/task'
-import { Card, TextArea } from './styles'
+import { Card } from './styles'
 
 type Props = {
   status: Status
+  boardId: string
 }
 
-const TaskForm = ({ status }: Props) => {
-  const [task, setTask] = useState<string>('')
+const TaskForm = ({ status, boardId }: Props) => {
+  const [title, setTitle] = useState<string>('')
 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const { themeStyles } = useTheme()
   const { isAdding, setIsAdding, addTask } = useTaskContext()
 
-  useAutoResizeTextarea(textareaRef, task)
+  useAutoResizeTextarea(textareaRef, title)
 
   useEffect(() => {
     if (isAdding) {
@@ -28,19 +29,19 @@ const TaskForm = ({ status }: Props) => {
   const handleEnter = (e: KeyboardEvent) => {
     if (e.key !== 'Enter') return
     e.preventDefault()
-    if (!task) return
-    addTask(task.trim(), status)
+    if (!title) return
+    addTask(boardId, title.trim(), status)
     setIsAdding(false)
   }
   return (
     <Card $themeStyles={themeStyles}>
-      <TextArea
-        value={task}
+      <textarea
+        value={title}
         ref={textareaRef}
         rows={1}
-        onChange={(e) => setTask(e.target.value)}
+        onChange={(e) => setTitle(e.target.value)}
         onKeyDown={handleEnter}
-        data-testid='add-task-input'
+        data-testid="add-task-input"
       />
     </Card>
   )
