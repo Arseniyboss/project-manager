@@ -13,7 +13,7 @@ export const SidebarContainer = styled.div<Props>`
   gap: 1.2rem;
   padding: 1.5rem;
   height: 100dvh;
-  width: 320px;
+  width: 340px;
 
   @media screen and (max-width: ${MOBILE_SIDEBAR_BREAKPOINT}px) {
     position: absolute;

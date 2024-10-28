@@ -17,5 +17,6 @@ export const Card = styled.li<Props>`
 
   textarea {
     width: 90%;
+    resize: none;
   }
 `

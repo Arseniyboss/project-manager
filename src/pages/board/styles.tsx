@@ -27,10 +27,15 @@ export const SidebarIconContainer = styled(Button)<Props>`
 `
 
 export const Heading = styled.h1`
+  line-height: 1.15;
   max-width: 75%;
   overflow-x: auto;
   white-space: nowrap;
   align-self: center;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const BoardWrapper = styled.section`

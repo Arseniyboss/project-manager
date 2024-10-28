@@ -41,7 +41,6 @@ const GlobalStyle = createGlobalStyle<Props>`
     background: inherit;
     font-size: inherit;
     font-family: inherit;
-    resize: none;
     overflow-y: hidden;
     line-height: 1.17;
   }
