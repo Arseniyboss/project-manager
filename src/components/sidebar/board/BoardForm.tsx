@@ -24,7 +24,7 @@ const BoardForm = () => {
     const boardId = crypto.randomUUID()
     const boardAlreadyExists = boards.find((board) => board.title === title)
     if (boardAlreadyExists) return alert('This board already exists')
-    addBoard(boardId, title)
+    addBoard(boardId, title.trim())
     navigate(`/board/${boardId}`)
     setIsAdding(false)
   }
