@@ -3,7 +3,7 @@ beforeEach(() => {
   cy.addBoard('General')
 })
 
-describe('Project Manager', () => {
+describe('Task', () => {
   it('should add a task to all columns', () => {
     cy.getByTestId('add-task-button').each((element, index) => {
       cy.wrap(element).click()
