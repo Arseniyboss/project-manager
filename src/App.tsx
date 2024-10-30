@@ -16,8 +16,9 @@ const App = () => {
       <Container>
         {isSidebarOpen && <Sidebar />}
         <Routes>
-          <Route path='/board/:id' element={<Board />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path="/" element={<Board showAllTasks />} />
+          <Route path="/board/:id" element={<Board />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
     </Router>

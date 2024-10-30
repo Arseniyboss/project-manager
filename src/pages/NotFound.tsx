@@ -1,9 +1,7 @@
 import { Navigate } from 'react-router-dom'
-import { useBoardContext } from '@/hooks/useBoardContext'
 
 const NotFound = () => {
-  const { allTasksBoard } = useBoardContext()
-  return <Navigate to={`/board/${allTasksBoard.id}`} replace />
+  return <Navigate to="/" replace />
 }
 
 export default NotFound

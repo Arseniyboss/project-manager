@@ -20,9 +20,9 @@ export type TaskContextType = {
   setIsAdding: Dispatch<SetStateAction<boolean>>
   handleAdd: (status: Status) => void
   handleDrag: (result: DropResult) => void
-  getBoardColumnTasks: (boardId: string, status: Status) => Task[]
   addTask: (boardId: string, title: string, status: Status) => void
   deleteTask: (id: string) => void
   deleteBoardTasks: (boardId: string) => void
   editTask: (id: string, title: string) => void
+  filterTasks: (status: Status, boardId?: string) => Task[]
 }

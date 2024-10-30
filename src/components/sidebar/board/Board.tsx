@@ -20,7 +20,7 @@ const Board = (props: Props) => {
   const [board, setBoard] = useState(title)
 
   const { themeStyles } = useTheme()
-  const { isAllTasksBoard, getAdjacentBoard, editBoard, deleteBoard } = useBoardContext()
+  const { getAdjacentBoard, editBoard, deleteBoard } = useBoardContext()
   const { deleteBoardTasks } = useTaskContext()
   const { closeMobileSidebar } = useSidebarContext()
 
@@ -37,7 +37,7 @@ const Board = (props: Props) => {
 
   const navigateToAdjacentBoard = () => {
     const adjacentBoard = getAdjacentBoard(id)
-    navigate(`/board/${adjacentBoard.id}`)
+    navigate(adjacentBoard ? `/board/${adjacentBoard.id}` : '/')
   }
 
   const handleDelete = () => {
@@ -66,15 +66,13 @@ const Board = (props: Props) => {
           data-testid="edit-board-input"
         />
       </FlexGroup>
-      {!isAllTasksBoard(id) && (
-        <Button
-          onClick={handleDelete}
-          aria-label="delete board"
-          data-testid="delete-board-button"
-        >
-          <FaTrashAlt />
-        </Button>
-      )}
+      <Button
+        onClick={handleDelete}
+        aria-label="delete board"
+        data-testid="delete-board-button"
+      >
+        <FaTrashAlt />
+      </Button>
     </BoardContainer>
   )
 }

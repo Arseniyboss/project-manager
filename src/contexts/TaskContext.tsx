@@ -2,7 +2,6 @@ import { ReactNode, createContext, useState } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import { TaskContextType, Task, Status, CurrentStatus } from '@/types/task'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
-import { useBoardContext } from '@/hooks/useBoardContext'
 
 type Props = {
   children: ReactNode
@@ -17,8 +16,6 @@ export const TaskContextProvider = ({ children }: Props) => {
   const [isAdding, setIsAdding] = useState<boolean>(false)
   const [currentStatus, setCurrentStatus] = useState<CurrentStatus>('')
 
-  const { isAllTasksBoard } = useBoardContext()
-
   const isCurrentColumn = (status: Status) => {
     return status === currentStatus
   }
@@ -30,13 +27,9 @@ export const TaskContextProvider = ({ children }: Props) => {
     })
   }
 
-  const getBoardColumnTasks = (boardId: string, status: Status) => {
-    return isAllTasksBoard(boardId) ? filterTasks(status) : filterTasks(status, boardId)
-  }
-
   const dragTask = (task: Task, newStatus: Status, newIndex: number) => {
     const reorderedTasks = [...tasks]
-    const boardColumnTasks = getBoardColumnTasks(task.boardId, newStatus)
+    const boardColumnTasks = filterTasks(newStatus, task.boardId)
     const updatedTask = boardColumnTasks[newIndex]
     const draggableTaskIndex = tasks.findIndex(({ id }) => id === task.id)
     const updatedTaskIndex = tasks.findIndex(({ id }) => id === updatedTask.id)
@@ -104,11 +97,11 @@ export const TaskContextProvider = ({ children }: Props) => {
     setIsAdding,
     handleAdd,
     handleDrag,
-    getBoardColumnTasks,
     addTask,
     deleteTask,
     deleteBoardTasks,
     editTask,
+    filterTasks,
   }
 
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>

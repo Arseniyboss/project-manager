@@ -18,7 +18,11 @@ type Params = {
   id: string
 }
 
-const Board = () => {
+type Props = {
+  showAllTasks?: boolean
+}
+
+const Board = ({ showAllTasks }: Props) => {
   const { isSidebarOpen, toggleSidebar } = useSidebarContext()
   const { statuses, handleDrag } = useTaskContext()
   const { getCurrentBoard } = useBoardContext()
@@ -26,7 +30,7 @@ const Board = () => {
   const { id } = useParams() as Params
   const board = getCurrentBoard(id)
 
-  if (!board) {
+  if (!showAllTasks && !board) {
     return <NotFound />
   }
   return (
@@ -40,12 +44,17 @@ const Board = () => {
         >
           <FiSidebar className="sidebarIcon" />
         </SidebarIconContainer>
-        <Heading>{board.title}</Heading>
+        <Heading>{showAllTasks ? 'All Tasks' : board!.title}</Heading>
       </Header>
       <BoardWrapper>
         <DragDropContext onDragEnd={handleDrag}>
           {statuses.map((status, index) => (
-            <BoardColumn key={index} status={status} boardId={id} />
+            <BoardColumn
+              key={index}
+              status={status}
+              boardId={id}
+              showAllTasks={showAllTasks}
+            />
           ))}
         </DragDropContext>
       </BoardWrapper>

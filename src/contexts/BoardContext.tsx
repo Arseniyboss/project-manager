@@ -9,25 +9,9 @@ type Props = {
 
 export const BoardContext = createContext<BoardContextType | null>(null)
 
-const initialBoards: Board[] = [
-  {
-    id: crypto.randomUUID(),
-    title: 'All Tasks',
-    type: 'all-tasks',
-  },
-]
-
 export const BoardContextProvider = ({ children }: Props) => {
-  const [boards, setBoards] = useLocalStorage<Board[]>('boards', initialBoards)
+  const [boards, setBoards] = useLocalStorage<Board[]>('boards', [])
   const [isAdding, setIsAdding] = useState<boolean>(false)
-
-  const allTasksBoard = boards.find((board) => board.type === 'all-tasks')!
-
-  const isAllTasksBoard = (id: string) => {
-    const currentBoard = getCurrentBoard(id)
-    const isAllTasksBoard = currentBoard?.type === 'all-tasks'
-    return isAllTasksBoard
-  }
 
   const getFilteredBoards = (boardId: string) => {
     return boards.filter((board) => board.id !== boardId)
@@ -41,7 +25,7 @@ export const BoardContextProvider = ({ children }: Props) => {
     const filteredBoards = getFilteredBoards(currentBoardId)
     const currentBoardIndex = getBoardIndex(currentBoardId)
     const nextBoard = filteredBoards.at(currentBoardIndex)
-    const previousBoard = filteredBoards.at(-1)!
+    const previousBoard = filteredBoards.at(-1)
     return nextBoard || previousBoard
   }
 
@@ -91,8 +75,6 @@ export const BoardContextProvider = ({ children }: Props) => {
   const value = {
     isAdding,
     boards,
-    allTasksBoard,
-    isAllTasksBoard,
     getCurrentBoard,
     getAdjacentBoard,
     setIsAdding,

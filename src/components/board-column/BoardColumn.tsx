@@ -1,7 +1,6 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { FaPlus } from 'react-icons/fa'
 import { useTheme } from '@/hooks/useTheme'
-import { useBoardContext } from '@/hooks/useBoardContext'
 import { useTaskContext } from '@/hooks/useTaskContext'
 import { Status } from '@/types/task'
 import { Button } from '@/styles'
@@ -12,19 +11,19 @@ import TaskForm from '@/components/task/TaskForm'
 type Props = {
   status: Status
   boardId: string
+  showAllTasks?: boolean
 }
 
-const BoardColumn = ({ status, boardId }: Props) => {
+const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
   const { themeStyles } = useTheme()
-  const { isAllTasksBoard } = useBoardContext()
-  const { isAdding, isCurrentColumn, handleAdd, getBoardColumnTasks } = useTaskContext()
-  const boardColumnTasks = getBoardColumnTasks(boardId, status)
-  const isDragDisabled = isAdding || isAllTasksBoard(boardId)
+  const { isAdding, isCurrentColumn, handleAdd, filterTasks } = useTaskContext()
+  const tasks = showAllTasks ? filterTasks(status) : filterTasks(status, boardId)
+  const isDragDisabled = isAdding || showAllTasks
   return (
     <BoardContainer $themeStyles={themeStyles}>
       <BoardHeader>
         <h2>{status}</h2>
-        {!isAllTasksBoard(boardId) && (
+        {!showAllTasks && (
           <Button
             onClick={() => handleAdd(status)}
             aria-label="add task"
@@ -41,7 +40,7 @@ const BoardColumn = ({ status, boardId }: Props) => {
             ref={provided.innerRef}
             data-testid="task-list"
           >
-            {boardColumnTasks.map((task, index) => (
+            {tasks.map((task, index) => (
               <Draggable
                 key={task.id}
                 index={index}
