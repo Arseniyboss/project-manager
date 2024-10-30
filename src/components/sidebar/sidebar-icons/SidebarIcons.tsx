@@ -11,7 +11,7 @@ import ThemeSwitcher from '@/components/sidebar/sidebar-icons/ThemeSwitcher'
 const SidebarIcons = () => {
   // const userInitials = 'JD'
   // const { themeStyles } = useTheme()
-  const { toggleSidebar } = useSidebarContext()
+  const { toggleSidebar, closeMobileSidebar } = useSidebarContext()
   return (
     <FlexGroup>
       <IconGroup>
@@ -22,7 +22,7 @@ const SidebarIcons = () => {
         >
           <FiSidebar className="sidebarIcon" />
         </Button>
-        <Button as={Link} to="/">
+        <Button as={Link} to="/" onClick={closeMobileSidebar}>
           <FiHome className="sidebarIcon" />
         </Button>
       </IconGroup>
