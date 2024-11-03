@@ -27,7 +27,8 @@ const Board = (props: Props) => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const isCurrentBoard = location.pathname.includes(id)
+  const currentBoardId = location.pathname.split('/').at(-1)
+  const isCurrentBoard = currentBoardId === id
 
   useUpdateEffect(() => {
     const trimmedBoard = board.trim()
