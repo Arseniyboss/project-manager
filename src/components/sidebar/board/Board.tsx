@@ -22,7 +22,7 @@ const Board = (props: Props) => {
   const { themeStyles } = useTheme()
   const { getAdjacentBoard, editBoard, deleteBoard } = useBoardContext()
   const { deleteBoardTasks } = useTaskContext()
-  const { closeMobileSidebar } = useSidebarContext()
+  const { handleLinkClick } = useSidebarContext()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -57,7 +57,7 @@ const Board = (props: Props) => {
       data-testid="board"
     >
       <FlexGroup>
-        <Link to={`/board/${id}`} aria-label={title} onClick={closeMobileSidebar}>
+        <Link to={`/board/${id}`} aria-label={title} onClick={handleLinkClick}>
           <HiOutlineViewColumns className="sidebarIcon" />
         </Link>
         <input

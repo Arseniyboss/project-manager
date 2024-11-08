@@ -7,11 +7,12 @@ import { IconGroup } from './styles'
 // import { useTheme } from '@/hooks/useTheme'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
 import ThemeSwitcher from '@/components/sidebar/sidebar-icons/ThemeSwitcher'
+// import { useTaskContext } from '@/hooks/useTaskContext'
 
 const SidebarIcons = () => {
   // const userInitials = 'JD'
   // const { themeStyles } = useTheme()
-  const { toggleSidebar, closeMobileSidebar } = useSidebarContext()
+  const { toggleSidebar, handleLinkClick } = useSidebarContext()
   return (
     <FlexGroup>
       <IconGroup>
@@ -22,7 +23,7 @@ const SidebarIcons = () => {
         >
           <FiSidebar className="sidebarIcon" />
         </Button>
-        <Button as={Link} to="/" onClick={closeMobileSidebar}>
+        <Button as={Link} to="/" onClick={handleLinkClick}>
           <FiHome className="sidebarIcon" />
         </Button>
       </IconGroup>
