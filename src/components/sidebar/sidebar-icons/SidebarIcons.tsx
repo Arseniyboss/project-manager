@@ -1,17 +1,11 @@
 import { Link } from 'react-router-dom'
 import { FiSidebar, FiHome } from 'react-icons/fi'
 import { Button } from '@/styles'
-import { FlexGroup } from '@/components/sidebar/styles'
-import { IconGroup } from './styles'
-// import { IconGroup, UserAvatar } from './styles'
-// import { useTheme } from '@/hooks/useTheme'
+import { FlexGroup, IconGroup } from '@/components/sidebar/styles'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
 import ThemeSwitcher from '@/components/sidebar/sidebar-icons/ThemeSwitcher'
-// import { useTaskContext } from '@/hooks/useTaskContext'
 
 const SidebarIcons = () => {
-  // const userInitials = 'JD'
-  // const { themeStyles } = useTheme()
   const { toggleSidebar, handleLinkClick } = useSidebarContext()
   return (
     <FlexGroup>
@@ -27,10 +21,6 @@ const SidebarIcons = () => {
           <FiHome className="sidebarIcon" />
         </Button>
       </IconGroup>
-      {/* <IconGroup>
-        <UserAvatar $themeStyles={themeStyles}>{userInitials}</UserAvatar>
-        <ThemeSwitcher />
-      </IconGroup> */}
       <ThemeSwitcher />
     </FlexGroup>
   )

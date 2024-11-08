@@ -26,8 +26,12 @@ export const FlexGroup = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  /* remove when using user avatar */
   &:first-of-type {
     margin: 0.4rem 0;
   }
+`
+
+export const IconGroup = styled.div`
+  display: flex;
+  gap: 0.8rem;
 `
