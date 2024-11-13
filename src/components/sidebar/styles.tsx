@@ -6,7 +6,7 @@ type Props = {
   $themeStyles: ThemeStyles
 }
 
-export const SidebarContainer = styled.div<Props>`
+export const SidebarContainer = styled.aside<Props>`
   background: ${({ $themeStyles }) => $themeStyles.sidebarColor};
   display: flex;
   flex-direction: column;
