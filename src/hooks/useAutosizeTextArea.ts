@@ -3,7 +3,7 @@ import { useSidebarContext } from './useSidebarContext'
 
 type Ref = RefObject<HTMLTextAreaElement>
 
-export const useAutoResizeTextarea = (ref: Ref, value: string) => {
+export const useAutoResizeTextArea = (ref: Ref, resizeTrigger: string) => {
   const { isDesktopSidebarOpen } = useSidebarContext()
 
   const handleResize = useCallback(() => {
@@ -19,5 +19,5 @@ export const useAutoResizeTextarea = (ref: Ref, value: string) => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [handleResize, ref, value, isDesktopSidebarOpen])
+  }, [handleResize, resizeTrigger, isDesktopSidebarOpen])
 }

@@ -1,7 +1,7 @@
 import { KeyboardEvent, useState, useRef, useEffect } from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { useTaskContext } from '@/hooks/useTaskContext'
-import { useAutoResizeTextarea } from '@/hooks/useAutosizeTextArea'
+import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { Status } from '@/types/task'
 import { Card } from './styles'
 
@@ -18,7 +18,7 @@ const TaskForm = ({ status, boardId }: Props) => {
   const { themeStyles } = useTheme()
   const { isAdding, setIsAdding, addTask } = useTaskContext()
 
-  useAutoResizeTextarea(textareaRef, title)
+  useAutoResizeTextArea(textareaRef, title)
 
   useEffect(() => {
     if (isAdding) {
