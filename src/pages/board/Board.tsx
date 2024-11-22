@@ -1,5 +1,5 @@
 import { FiSidebar } from 'react-icons/fi'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext } from '@hello-pangea/dnd'
 import { useParams } from 'react-router-dom'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
 import { useTaskContext } from '@/hooks/useTaskContext'

@@ -1,4 +1,4 @@
-import { Droppable, Draggable } from 'react-beautiful-dnd'
+import { Droppable, Draggable } from '@hello-pangea/dnd'
 import { useBoardContext } from '@/hooks/useBoardContext'
 import Board from './Board'
 import BoardForm from './BoardForm'

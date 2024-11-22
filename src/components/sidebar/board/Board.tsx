@@ -1,4 +1,4 @@
-import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
+import { DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd'
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { HiOutlineViewColumns } from 'react-icons/hi2'

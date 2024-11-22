@@ -1,4 +1,4 @@
-import { DropResult } from 'react-beautiful-dnd'
+import { DropResult } from '@hello-pangea/dnd'
 import { ReactNode, createContext, useState } from 'react'
 import { BoardContextType, Board } from '@/types/board'
 import { useLocalStorage } from '@/hooks/useLocalStorage'

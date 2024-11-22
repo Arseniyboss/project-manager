@@ -1,4 +1,4 @@
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext } from '@hello-pangea/dnd'
 import { FaPlus } from 'react-icons/fa'
 import { Button } from '@/styles'
 import { SidebarContainer, FlexGroup } from './styles'

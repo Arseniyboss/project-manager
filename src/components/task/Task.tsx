@@ -1,5 +1,5 @@
 import { KeyboardEvent, useState, useRef } from 'react'
-import { DraggableProvided } from 'react-beautiful-dnd'
+import { DraggableProvided } from '@hello-pangea/dnd'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useTheme } from '@/hooks/useTheme'
 import { useTaskContext } from '@/hooks/useTaskContext'

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import { DropResult } from 'react-beautiful-dnd'
+import { DropResult } from '@hello-pangea/dnd'
 
 export type Status = 'To Do' | 'In Progress' | 'Done'
 
