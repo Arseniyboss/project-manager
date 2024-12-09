@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useLayoutEffect } from 'react'
+import { RefObject, useLayoutEffect } from 'react'
 import { useSidebarContext } from './useSidebarContext'
 
 type Ref = RefObject<HTMLTextAreaElement>
@@ -6,12 +6,12 @@ type Ref = RefObject<HTMLTextAreaElement>
 export const useAutoResizeTextArea = (ref: Ref, resizeTrigger: string) => {
   const { isDesktopSidebarOpen } = useSidebarContext()
 
-  const handleResize = useCallback(() => {
+  const handleResize = () => {
     const textarea = ref.current
     if (!textarea) return
     textarea.style.height = 'auto' // adjusts height when deleting multiple lines of text
     textarea.style.height = `${textarea.scrollHeight}px`
-  }, [ref])
+  }
 
   useLayoutEffect(() => {
     handleResize()
@@ -19,5 +19,5 @@ export const useAutoResizeTextArea = (ref: Ref, resizeTrigger: string) => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [handleResize, resizeTrigger, isDesktopSidebarOpen])
+  }, [resizeTrigger, isDesktopSidebarOpen])
 }
