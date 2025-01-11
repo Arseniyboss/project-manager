@@ -57,7 +57,12 @@ const Board = (props: Props) => {
       data-testid="board"
     >
       <FlexGroup>
-        <Link to={`/board/${id}`} aria-label={title} onClick={handleLinkClick}>
+        <Link
+          to={`/board/${id}`}
+          aria-label={title}
+          aria-current={isCurrentBoard && 'page'}
+          onClick={handleLinkClick}
+        >
           <HiOutlineViewColumns className="sidebarIcon" />
         </Link>
         <input
