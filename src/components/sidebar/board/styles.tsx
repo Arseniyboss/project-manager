@@ -12,16 +12,13 @@ export const BoardContainer = styled.li<Props>`
   justify-content: space-between;
   align-items: center;
   gap: 0.8rem;
-  padding: 0.8rem;
+  padding: 0.9rem;
+  margin-bottom: 0.2rem;
   border-radius: 0.5rem;
   width: 100%;
   background: ${({ $isCurrentBoard, $themeStyles }) => {
     return $isCurrentBoard && $themeStyles.currentBoardColor
   }};
-
-  &:not(:last-child) {
-    margin-bottom: 0.2rem;
-  }
 
   &:hover {
     background: ${({ $isAdding, $themeStyles }) => {
