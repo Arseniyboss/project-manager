@@ -1,7 +1,7 @@
 import { RefObject, useLayoutEffect } from 'react'
 import { useSidebarContext } from './useSidebarContext'
 
-type Ref = RefObject<HTMLTextAreaElement>
+type Ref = RefObject<HTMLTextAreaElement | null>
 
 export const useAutoResizeTextArea = (ref: Ref, resizeTrigger: string) => {
   const { isDesktopSidebarOpen } = useSidebarContext()
