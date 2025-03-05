@@ -1,8 +1,11 @@
+import { FaCircleCheck } from 'react-icons/fa6'
+import { isMobile } from 'react-device-detect'
 import { KeyboardEvent, useState, useRef, useEffect } from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { useTaskContext } from '@/hooks/useTaskContext'
 import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { Status } from '@/types/task'
+import { Button } from '@/styles'
 import { Card } from './styles'
 
 type Props = {
@@ -26,12 +29,16 @@ const TaskForm = ({ status, boardId }: Props) => {
     }
   }, [isAdding])
 
-  const handleEnter = (e: KeyboardEvent) => {
-    if (e.key !== 'Enter') return
-    e.preventDefault()
+  const handleAddTask = () => {
     if (!title) return
     addTask(boardId, title.trim(), status)
     setIsAdding(false)
+  }
+
+  const handleEnter = (e: KeyboardEvent) => {
+    if (isMobile || e.key !== 'Enter' || e.shiftKey) return
+    e.preventDefault()
+    handleAddTask()
   }
   return (
     <Card $themeStyles={themeStyles}>
@@ -43,6 +50,9 @@ const TaskForm = ({ status, boardId }: Props) => {
         onKeyDown={handleEnter}
         data-testid="add-task-input"
       />
+      <Button onClick={handleAddTask} aria-label="add task" data-testid="add-task-button">
+        <FaCircleCheck />
+      </Button>
     </Card>
   )
 }
