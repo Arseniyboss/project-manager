@@ -26,9 +26,9 @@ const Task = (props: Props) => {
 
   const { themeStyles } = useTheme()
   const { deleteTask, editTask } = useTaskContext()
-  const { boards } = useBoardContext()
+  const { getCurrentBoard } = useBoardContext()
 
-  const board = boards.find((board) => board.id === boardId)
+  const board = getCurrentBoard(boardId)
 
   useAutoResizeTextArea(textareaRef, task)
 
