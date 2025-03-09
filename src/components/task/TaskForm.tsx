@@ -6,7 +6,7 @@ import { useTaskContext } from '@/hooks/useTaskContext'
 import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { Status } from '@/types/task'
 import { Button } from '@/styles'
-import { Card } from './styles'
+import { Card, CardBody } from './styles'
 
 type Props = {
   status: Status
@@ -42,17 +42,23 @@ const TaskForm = ({ status, boardId }: Props) => {
   }
   return (
     <Card $themeStyles={themeStyles}>
-      <textarea
-        value={title}
-        ref={textareaRef}
-        rows={1}
-        onChange={(e) => setTitle(e.target.value)}
-        onKeyDown={handleEnter}
-        data-testid="add-task-input"
-      />
-      <Button onClick={handleAddTask} aria-label="add task" data-testid="add-task-button">
-        <FaCircleCheck />
-      </Button>
+      <CardBody>
+        <textarea
+          value={title}
+          ref={textareaRef}
+          rows={1}
+          onChange={(e) => setTitle(e.target.value)}
+          onKeyDown={handleEnter}
+          data-testid="add-task-input"
+        />
+        <Button
+          onClick={handleAddTask}
+          aria-label="add task"
+          data-testid="add-task-button"
+        >
+          <FaCircleCheck />
+        </Button>
+      </CardBody>
     </Card>
   )
 }

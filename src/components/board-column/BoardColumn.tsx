@@ -47,7 +47,14 @@ const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
                 draggableId={task.id}
                 isDragDisabled={isDragDisabled}
               >
-                {(provided) => <Task key={task.id} {...task} {...provided} />}
+                {(provided) => (
+                  <Task
+                    key={task.id}
+                    showAllTasks={showAllTasks}
+                    {...task}
+                    {...provided}
+                  />
+                )}
               </Draggable>
             ))}
             {isAdding && isCurrentColumn(status) && (

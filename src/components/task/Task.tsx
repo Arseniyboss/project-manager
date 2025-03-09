@@ -7,12 +7,18 @@ import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { useUpdateEffect } from '@/hooks/useUpdateEffect'
 import { Task as TaskProps } from '@/types/task'
 import { Button } from '@/styles'
-import { Card } from './styles'
+import { Card, CardBody, BoardTag } from './styles'
+import { useBoardContext } from '@/hooks/useBoardContext'
 
-type Props = TaskProps & DraggableProvided
+type CustomProps = {
+  showAllTasks?: boolean
+}
+
+type Props = TaskProps & DraggableProvided & CustomProps
 
 const Task = (props: Props) => {
-  const { id, title, draggableProps, dragHandleProps, innerRef } = props
+  const { id, boardId, title, showAllTasks, draggableProps, dragHandleProps, innerRef } =
+    props
 
   const [task, setTask] = useState<string>(title)
 
@@ -20,6 +26,9 @@ const Task = (props: Props) => {
 
   const { themeStyles } = useTheme()
   const { deleteTask, editTask } = useTaskContext()
+  const { boards } = useBoardContext()
+
+  const board = boards.find((board) => board.id === boardId)
 
   useAutoResizeTextArea(textareaRef, task)
 
@@ -36,21 +45,24 @@ const Task = (props: Props) => {
       $themeStyles={themeStyles}
       data-testid="task"
     >
-      <textarea
-        value={task}
-        ref={textareaRef}
-        rows={1}
-        onChange={(e) => setTask(e.target.value)}
-        aria-label="edit task input"
-        data-testid="edit-task-input"
-      />
-      <Button
-        onClick={() => deleteTask(id)}
-        aria-label="delete task"
-        data-testid="delete-task-button"
-      >
-        <FaTrashAlt />
-      </Button>
+      <CardBody>
+        <textarea
+          value={task}
+          ref={textareaRef}
+          rows={1}
+          onChange={(e) => setTask(e.target.value)}
+          aria-label="edit task input"
+          data-testid="edit-task-input"
+        />
+        <Button
+          onClick={() => deleteTask(id)}
+          aria-label="delete task"
+          data-testid="delete-task-button"
+        >
+          <FaTrashAlt />
+        </Button>
+      </CardBody>
+      {showAllTasks && <BoardTag $themeStyles={themeStyles}>{board!.title}</BoardTag>}
     </Card>
   )
 }
