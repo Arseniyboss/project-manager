@@ -22,13 +22,14 @@ export const Card = styled.li<Props>`
 
 export const CardBody = styled.div`
   display: flex;
+  align-items: flex-start;
   gap: 0.5rem;
 `
 
 export const BoardTag = styled.span<Props>`
   background: #eee;
   color: #444;
-  align-self: start;
+  align-self: flex-start;
   white-space: nowrap;
   overflow-y: auto;
   max-width: 100%;
