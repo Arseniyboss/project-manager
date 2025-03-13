@@ -24,7 +24,7 @@ describe('Board', () => {
     cy.addBoard('Board 2')
 
     cy.getByTestId('board').first().as('firstBoard')
-    cy.get('@firstBoard').focus().pressSpace().type('{downArrow}').pressSpace()
+    cy.get('@firstBoard').focus().pressSpace().move('down').pressSpace()
 
     cy.getByTestId('edit-board-input').first().should('have.value', 'Board 2')
     cy.getByTestId('edit-board-input').last().should('have.value', 'Board 1')

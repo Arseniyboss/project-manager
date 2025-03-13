@@ -9,8 +9,6 @@ type Props = {
 
 export const BoardContainer = styled.li<Props>`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   gap: 0.8rem;
   padding: 0.9rem;
   margin-bottom: 0.2rem;
@@ -36,7 +34,6 @@ export const BoardContainer = styled.li<Props>`
 
 export const FlexGroup = styled.div`
   display: flex;
-  align-items: center;
   gap: 0.8rem;
   width: 100%;
 

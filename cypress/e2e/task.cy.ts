@@ -26,7 +26,7 @@ describe('Task', () => {
     cy.addTask('Last Task')
 
     cy.getByTestId('task').first().as('firstTask')
-    cy.get('@firstTask').focus().pressSpace().type('{downArrow}').pressSpace()
+    cy.get('@firstTask').focus().pressSpace().move('down').pressSpace()
 
     cy.getByTestId('task').first().should('contain', 'Last Task')
     cy.getByTestId('task').last().should('contain', 'First Task')
@@ -36,7 +36,7 @@ describe('Task', () => {
     cy.addTask('Last Task')
 
     cy.getByTestId('task').first().as('firstTask')
-    cy.get('@firstTask').focus().pressSpace().type('{rightArrow}').pressSpace()
+    cy.get('@firstTask').focus().pressSpace().move('right').pressSpace()
 
     cy.getByTestId('task-list').eq(1).should('contain', 'First Task')
     cy.getByTestId('task-list').eq(0).should('not.contain', 'First Task')

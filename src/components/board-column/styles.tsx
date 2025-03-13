@@ -6,7 +6,7 @@ type ContainerProps = {
 }
 
 export const BoardContainer = styled.article<ContainerProps>`
-  background: ${({ $themeStyles }) => $themeStyles.columnColor};
+  background: ${({ $themeStyles }) => $themeStyles.boardColumnColor};
   display: flex;
   flex-direction: column;
   gap: 1rem;

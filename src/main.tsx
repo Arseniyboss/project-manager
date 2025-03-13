@@ -3,16 +3,19 @@ import App from './App.tsx'
 import { ThemeContextProvider } from './contexts/ThemeContext'
 import { BoardContextProvider } from './contexts/BoardContext.tsx'
 import { TaskContextProvider } from './contexts/TaskContext'
-import { SidebarContextProvider } from './contexts/SidebarContext.tsx'
+import { SubtaskContextProvider } from './contexts/SubtaskContext'
+import { SidebarContextProvider } from './contexts/SidebarContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ThemeContextProvider>
-    <BoardContextProvider>
+    <SubtaskContextProvider>
       <TaskContextProvider>
-        <SidebarContextProvider>
-          <App />
-        </SidebarContextProvider>
+        <BoardContextProvider>
+          <SidebarContextProvider>
+            <App />
+          </SidebarContextProvider>
+        </BoardContextProvider>
       </TaskContextProvider>
-    </BoardContextProvider>
+    </SubtaskContextProvider>
   </ThemeContextProvider>
 )

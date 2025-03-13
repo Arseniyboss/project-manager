@@ -6,7 +6,6 @@ import { FaTrashAlt } from 'react-icons/fa'
 import { useUpdateEffect } from '@/hooks/useUpdateEffect'
 import { useTheme } from '@/hooks/useTheme'
 import { useBoardContext } from '@/hooks/useBoardContext'
-import { useTaskContext } from '@/hooks/useTaskContext'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
 import { BoardType } from '@/types/board'
 import { Button } from '@/styles'
@@ -21,7 +20,6 @@ const Board = (props: Props) => {
 
   const { themeStyles } = useTheme()
   const { getAdjacentBoard, editBoard, deleteBoard } = useBoardContext()
-  const { deleteBoardTasks } = useTaskContext()
   const { handleLinkClick } = useSidebarContext()
 
   const navigate = useNavigate()
@@ -43,7 +41,6 @@ const Board = (props: Props) => {
 
   const handleDelete = () => {
     deleteBoard(id)
-    deleteBoardTasks(id)
     if (!isCurrentBoard) return
     navigateToAdjacentBoard()
   }
@@ -77,7 +74,7 @@ const Board = (props: Props) => {
         aria-label="delete board"
         data-testid="delete-board-button"
       >
-        <FaTrashAlt />
+        <FaTrashAlt size={19} />
       </Button>
     </BoardContainer>
   )

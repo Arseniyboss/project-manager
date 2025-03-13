@@ -20,11 +20,12 @@ const BoardForm = () => {
   }, [isAdding])
 
   const handleEnter = (e: KeyboardEvent) => {
-    if (e.key !== 'Enter' || !title) return
+    const trimmedTitle = title.trim()
+    if (e.key !== 'Enter' || !trimmedTitle) return
     const boardId = crypto.randomUUID()
-    const boardAlreadyExists = boards.find((board) => board.title === title)
+    const boardAlreadyExists = boards.find((board) => board.title === trimmedTitle)
     if (boardAlreadyExists) return alert('This board already exists')
-    addBoard(boardId, title.trim())
+    addBoard(boardId, trimmedTitle)
     navigate(`/board/${boardId}`)
     setIsAdding(false)
   }

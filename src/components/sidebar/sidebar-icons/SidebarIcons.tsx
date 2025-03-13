@@ -17,7 +17,7 @@ const SidebarIcons = () => {
         >
           <FiSidebar className="sidebarIcon" />
         </Button>
-        <Button as={Link} to="/" onClick={handleLinkClick}>
+        <Button as={Link} to="/" aria-label="home link" onClick={handleLinkClick}>
           <FiHome className="sidebarIcon" />
         </Button>
       </IconGroup>

@@ -5,8 +5,12 @@ type Props = {
   $themeStyles: ThemeStyles
 }
 
+type TaskCardProps = {
+  $paddingBottom: boolean
+}
+
 export const Card = styled.li<Props>`
-  background: ${({ $themeStyles }) => $themeStyles.cardColor};
+  background: ${({ $themeStyles }) => $themeStyles.taskCardColor};
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -15,15 +19,25 @@ export const Card = styled.li<Props>`
   margin-bottom: 0.75rem;
 
   textarea {
-    width: 100%;
+    width: 80%;
     resize: none;
   }
 `
 
+export const TaskCard = styled(Card)<TaskCardProps>`
+  padding-bottom: ${({ $paddingBottom }) => $paddingBottom && '0.25rem'};
+`
+
 export const CardBody = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 0.5rem;
+`
+
+export const IconGroup = styled.div`
+  display: flex;
+  gap: inherit;
 `
 
 export const BoardTag = styled.span<Props>`

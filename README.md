@@ -25,15 +25,28 @@ Project manager built with React
 
 ## Features
 
+### Board
+
 - Add boards
-- Edit boards
 - Delete boards
+- Edit boards
 - Reorder boards
 - Autosave boards in localStorage
+
+### Task
+
 - Add tasks
 - Delete tasks
 - Edit tasks
 - Reorder tasks
 - Drag and drop tasks between columns
 - Autosave tasks in localStorage
-- Dark Theme
+
+### Subtask
+
+- Add subtasks
+- Delete subtasks
+- Edit subtasks
+- Check and uncheck subtasks
+- Reorder subtasks
+- Autosave subtasks in localStorage

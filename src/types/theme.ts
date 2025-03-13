@@ -3,8 +3,9 @@ export type Theme = 'light' | 'dark'
 export type ThemeStyles = {
   background: string
   color: string
-  columnColor: string
-  cardColor: string
+  boardColumnColor: string
+  taskCardColor: string
+  subtaskCardColor: string
   sidebarColor: string
   currentBoardColor: string
 }

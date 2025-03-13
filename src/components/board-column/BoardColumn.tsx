@@ -7,6 +7,7 @@ import { Button } from '@/styles'
 import { BoardContainer, BoardHeader } from './styles'
 import Task from '@/components/task/Task'
 import TaskForm from '@/components/task/TaskForm'
+import { useSubtaskContext } from '@/hooks/useSubtaskContext'
 
 type Props = {
   status: Status
@@ -17,8 +18,9 @@ type Props = {
 const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
   const { themeStyles } = useTheme()
   const { isAdding, isCurrentColumn, handleAdd, filterTasks } = useTaskContext()
+  const { isSubtaskHovered } = useSubtaskContext()
   const tasks = showAllTasks ? filterTasks(status) : filterTasks(status, boardId)
-  const isDragDisabled = isAdding || showAllTasks
+  const isDragDisabled = isAdding || isSubtaskHovered || showAllTasks
   return (
     <BoardContainer $themeStyles={themeStyles}>
       <BoardHeader>

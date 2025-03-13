@@ -2,6 +2,7 @@ import { DropResult } from '@hello-pangea/dnd'
 import { ReactNode, createContext, useState } from 'react'
 import { BoardContextType, Board } from '@/types/board'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { useTaskContext } from '@/hooks/useTaskContext'
 
 type Props = {
   children: ReactNode
@@ -12,6 +13,8 @@ export const BoardContext = createContext<BoardContextType | null>(null)
 export const BoardContextProvider = ({ children }: Props) => {
   const [boards, setBoards] = useLocalStorage<Board[]>('boards', [])
   const [isAdding, setIsAdding] = useState<boolean>(false)
+
+  const { deleteBoardTasks } = useTaskContext()
 
   const getFilteredBoards = (boardId: string) => {
     return boards.filter((board) => board.id !== boardId)
@@ -40,6 +43,7 @@ export const BoardContextProvider = ({ children }: Props) => {
   const deleteBoard = (id: string) => {
     const filteredBoards = getFilteredBoards(id)
     setBoards(filteredBoards)
+    deleteBoardTasks(id)
   }
 
   const editBoard = (id: string, title: string) => {

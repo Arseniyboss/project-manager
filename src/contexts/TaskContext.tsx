@@ -2,6 +2,7 @@ import { ReactNode, createContext, useState } from 'react'
 import { DropResult } from '@hello-pangea/dnd'
 import { TaskContextType, Task, Status, CurrentStatus } from '@/types/task'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { useSubtaskContext } from '@/hooks/useSubtaskContext'
 
 type Props = {
   children: ReactNode
@@ -15,6 +16,8 @@ export const TaskContextProvider = ({ children }: Props) => {
   const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', [])
   const [isAdding, setIsAdding] = useState<boolean>(false)
   const [currentStatus, setCurrentStatus] = useState<CurrentStatus>('')
+
+  const { subtasks, setSubtasks, deleteTaskSubtasks } = useSubtaskContext()
 
   const isCurrentColumn = (status: Status) => {
     return status === currentStatus
@@ -75,11 +78,18 @@ export const TaskContextProvider = ({ children }: Props) => {
   const deleteTask = (id: string) => {
     const filteredTasks = tasks.filter((task) => task.id !== id)
     setTasks(filteredTasks)
+    deleteTaskSubtasks(id)
   }
 
   const deleteBoardTasks = (boardId: string) => {
     const filteredTasks = tasks.filter((task) => task.boardId !== boardId)
+    const boardTasks = tasks.filter((task) => task.boardId === boardId)
+    const boardTaskIds = boardTasks.map((task) => task.id)
+    const filteredSubtasks = subtasks.filter((subtask) => {
+      return !boardTaskIds.includes(subtask.taskId)
+    })
     setTasks(filteredTasks)
+    setSubtasks(filteredSubtasks)
   }
 
   const editTask = (id: string, title: string) => {
