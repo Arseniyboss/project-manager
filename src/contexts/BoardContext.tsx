@@ -14,7 +14,7 @@ export const BoardContextProvider = ({ children }: Props) => {
   const [boards, setBoards] = useLocalStorage<Board[]>('boards', [])
   const [isAdding, setIsAdding] = useState<boolean>(false)
 
-  const { deleteBoardTasks } = useTaskContext()
+  const { tasks, deleteBoardTasks } = useTaskContext()
 
   const getFilteredBoards = (boardId: string) => {
     return boards.filter((board) => board.id !== boardId)
@@ -34,6 +34,14 @@ export const BoardContextProvider = ({ children }: Props) => {
 
   const getCurrentBoard = (id: string) => {
     return boards.find((board) => board.id === id)
+  }
+
+  const calculateBoardProgress = (boardId: string) => {
+    const boardTasks = tasks.filter((task) => task.boardId === boardId)
+    if (boardTasks.length === 0) return 0
+    const completedBoardTasks = boardTasks.filter((task) => task.status === 'Done')
+    const boardProgress = (completedBoardTasks.length / boardTasks.length) * 100
+    return Math.floor(boardProgress)
   }
 
   const addBoard = (id: string, title: string) => {
@@ -81,6 +89,7 @@ export const BoardContextProvider = ({ children }: Props) => {
     boards,
     getCurrentBoard,
     getAdjacentBoard,
+    calculateBoardProgress,
     setIsAdding,
     addBoard,
     deleteBoard,

@@ -12,8 +12,15 @@ export const SidebarContainer = styled.aside<Props>`
   flex-direction: column;
   gap: 1.2rem;
   padding: 1.5rem;
+  padding-bottom: 0.75rem;
   height: 100dvh;
   width: 340px;
+
+  ul {
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem;
+    padding-top: 0.25rem;
+  }
 
   @media screen and (max-width: ${MOBILE_SIDEBAR_BREAKPOINT}px) {
     position: absolute;

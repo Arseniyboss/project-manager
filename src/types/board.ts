@@ -14,6 +14,7 @@ export type BoardContextType = {
   boards: Board[]
   getCurrentBoard: (id: string) => Board | undefined
   getAdjacentBoard: (currentBoardId: string) => Board | undefined
+  calculateBoardProgress: (boardId: string) => number
   setIsAdding: Dispatch<SetStateAction<boolean>>
   addBoard: (id: string, title: string) => void
   deleteBoard: (id: string) => void

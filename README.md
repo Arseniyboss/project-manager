@@ -50,3 +50,9 @@ Project manager built with React
 - Check and uncheck subtasks
 - Reorder subtasks
 - Autosave subtasks in localStorage
+
+### Other
+
+- All Tasks Board
+- Board Progress Status
+- Dark Theme

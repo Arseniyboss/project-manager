@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useTheme } from '@/hooks/useTheme'
 import { useBoardContext } from '@/hooks/useBoardContext'
 import { HiOutlineViewColumns } from 'react-icons/hi2'
+import { FaCircleCheck } from 'react-icons/fa6'
+import { Button } from '@/styles'
 import { BoardContainer, FlexGroup } from './styles'
 
 const BoardForm = () => {
@@ -19,15 +21,21 @@ const BoardForm = () => {
     }
   }, [isAdding])
 
-  const handleEnter = (e: KeyboardEvent) => {
+  const handleAddBoard = () => {
     const trimmedTitle = title.trim()
-    if (e.key !== 'Enter' || !trimmedTitle) return
+    if (!trimmedTitle) return
     const boardId = crypto.randomUUID()
     const boardAlreadyExists = boards.find((board) => board.title === trimmedTitle)
     if (boardAlreadyExists) return alert('This board already exists')
     addBoard(boardId, trimmedTitle)
     navigate(`/board/${boardId}`)
     setIsAdding(false)
+  }
+
+  const handleEnter = (e: KeyboardEvent) => {
+    if (e.key !== 'Enter') return
+    e.preventDefault()
+    handleAddBoard()
   }
   return (
     <BoardContainer $themeStyles={themeStyles} $isAdding={isAdding}>
@@ -40,6 +48,14 @@ const BoardForm = () => {
           onKeyDown={handleEnter}
           data-testid="add-board-input"
         />
+
+        <Button
+          onClick={handleAddBoard}
+          aria-label="add board"
+          data-testid="add-board-button"
+        >
+          <FaCircleCheck size={20} />
+        </Button>
       </FlexGroup>
     </BoardContainer>
   )

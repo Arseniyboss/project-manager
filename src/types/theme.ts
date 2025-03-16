@@ -8,6 +8,7 @@ export type ThemeStyles = {
   subtaskCardColor: string
   sidebarColor: string
   currentBoardColor: string
+  currentBoardShadowColor: string
 }
 
 export type Themes = Record<Theme, ThemeStyles>

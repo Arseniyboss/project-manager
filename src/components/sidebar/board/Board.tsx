@@ -9,7 +9,14 @@ import { useBoardContext } from '@/hooks/useBoardContext'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
 import { BoardType } from '@/types/board'
 import { Button } from '@/styles'
-import { BoardContainer, FlexGroup } from './styles'
+import {
+  BoardContainer,
+  BoardHeader,
+  FlexGroup,
+  ProgressContainer,
+  ProgressBarContainer,
+  ProgressBar,
+} from './styles'
 
 type Props = BoardType & DraggableProvided & DraggableStateSnapshot
 
@@ -19,11 +26,14 @@ const Board = (props: Props) => {
   const [board, setBoard] = useState(title)
 
   const { themeStyles } = useTheme()
-  const { getAdjacentBoard, editBoard, deleteBoard } = useBoardContext()
+  const { getAdjacentBoard, editBoard, deleteBoard, calculateBoardProgress } =
+    useBoardContext()
   const { handleLinkClick } = useSidebarContext()
 
   const navigate = useNavigate()
   const location = useLocation()
+
+  const boardProgress = calculateBoardProgress(id)
 
   const currentBoardId = location.pathname.split('/').at(-1)
   const isCurrentBoard = currentBoardId === id
@@ -53,29 +63,45 @@ const Board = (props: Props) => {
       $isCurrentBoard={isCurrentBoard || isDragging}
       data-testid="board"
     >
-      <FlexGroup>
-        <Link
-          to={`/board/${id}`}
-          aria-label={title}
-          aria-current={isCurrentBoard && 'page'}
-          onClick={handleLinkClick}
+      <BoardHeader>
+        <FlexGroup>
+          <Link
+            to={`/board/${id}`}
+            aria-label={title}
+            aria-current={isCurrentBoard && 'page'}
+            onClick={handleLinkClick}
+          >
+            <HiOutlineViewColumns className="sidebarIcon" />
+          </Link>
+          <input
+            value={board}
+            onChange={(e) => setBoard(e.target.value)}
+            aria-label="edit board input"
+            data-testid="edit-board-input"
+          />
+        </FlexGroup>
+        <Button
+          onClick={handleDelete}
+          aria-label="delete board"
+          data-testid="delete-board-button"
         >
-          <HiOutlineViewColumns className="sidebarIcon" />
-        </Link>
-        <input
-          value={board}
-          onChange={(e) => setBoard(e.target.value)}
-          aria-label="edit board input"
-          data-testid="edit-board-input"
-        />
-      </FlexGroup>
-      <Button
-        onClick={handleDelete}
-        aria-label="delete board"
-        data-testid="delete-board-button"
-      >
-        <FaTrashAlt size={19} />
-      </Button>
+          <FaTrashAlt size={19} />
+        </Button>
+      </BoardHeader>
+      <ProgressContainer>
+        <ProgressBarContainer>
+          <ProgressBar
+            role="progressbar"
+            aria-live="polite"
+            aria-label={`board progress: ${boardProgress}%`}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={boardProgress}
+            $boardProgress={boardProgress}
+          />
+        </ProgressBarContainer>
+        <p>{boardProgress}%</p>
+      </ProgressContainer>
     </BoardContainer>
   )
 }

@@ -8,7 +8,8 @@ export const themes: Themes = {
     taskCardColor: '#fff',
     subtaskCardColor: '#f5f5f5',
     sidebarColor: '#f5f5f5',
-    currentBoardColor: '#e6e6e6',
+    currentBoardColor: '#e3e3e3',
+    currentBoardShadowColor: '#aaa',
   },
   dark: {
     background: '#202127',
@@ -18,5 +19,6 @@ export const themes: Themes = {
     subtaskCardColor: '#595964',
     sidebarColor: '#2c2c35',
     currentBoardColor: '#44444f',
+    currentBoardShadowColor: '#000',
   },
 }
