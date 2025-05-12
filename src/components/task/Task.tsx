@@ -62,13 +62,15 @@ const Task = (props: Props) => {
           data-testid="edit-task-input"
         />
         <IconGroup>
-          <Button
-            onClick={() => handleAdd(id)}
-            aria-label="add subtask"
-            data-testid="add-subtask-button"
-          >
-            <LuClipboardPlus size={20} />
-          </Button>
+          {!showAllTasks && (
+            <Button
+              onClick={() => handleAdd(id)}
+              aria-label="add subtask"
+              data-testid="add-subtask-button"
+            >
+              <LuClipboardPlus size={20} />
+            </Button>
+          )}
           <Button
             onClick={() => deleteTask(id)}
             aria-label="delete task"
@@ -78,7 +80,7 @@ const Task = (props: Props) => {
           </Button>
         </IconGroup>
       </CardBody>
-      <SubtaskList subtasks={subtasks} taskId={id} />
+      {!showAllTasks && <SubtaskList subtasks={subtasks} taskId={id} />}
       {showAllTasks && <BoardTag $themeStyles={themeStyles}>{board!.title}</BoardTag>}
     </TaskCard>
   )
