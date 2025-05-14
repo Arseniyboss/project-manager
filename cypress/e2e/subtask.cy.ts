@@ -8,17 +8,17 @@ describe('Subtask', () => {
   it('should add a subtask', () => {
     cy.getByTestId('add-subtask-button').click()
     cy.getByTestId('add-subtask-input').type(`Subtask{enter}`)
-    cy.getByTestId('subtask-list').first().should('contain', 'Subtask')
+    cy.getByTestId('subtask-list').should('contain', 'Subtask')
   })
   it('should delete a subtask', () => {
     cy.addSubtask('Subtask')
     cy.getByTestId('delete-subtask-button').click()
-    cy.getByTestId('subtask-list').first().should('not.contain', 'Subtask')
+    cy.getByTestId('subtask-list').should('not.contain', 'Subtask')
   })
   it('should edit a subtask', () => {
     cy.addSubtask('Subtask')
-    cy.getByTestId('edit-subtask-input').first().clear().type('Edited Subtask').blur()
-    cy.getByTestId('subtask-list').first().should('contain', 'Edited Subtask')
+    cy.getByTestId('edit-subtask-input').clear().type('Edited Subtask').blur()
+    cy.getByTestId('subtask-list').should('contain', 'Edited Subtask')
   })
   it('should check and uncheck a subtask', () => {
     cy.addSubtask('Subtask')

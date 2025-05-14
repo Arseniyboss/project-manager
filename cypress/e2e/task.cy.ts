@@ -14,12 +14,12 @@ describe('Task', () => {
   it('should delete a task', () => {
     cy.addTask('New Task')
     cy.getByTestId('delete-task-button').click()
-    cy.getByTestId('task-list').first().should('not.contain', 'New Task')
+    cy.getByTestId('task-list').should('not.contain', 'New Task')
   })
   it('should edit a task', () => {
     cy.addTask('New Task')
-    cy.getByTestId('edit-task-input').first().clear().type('Edited Task').blur()
-    cy.getByTestId('task-list').first().should('contain', 'Edited Task')
+    cy.getByTestId('edit-task-input').clear().type('Edited Task').blur()
+    cy.getByTestId('task-list').should('contain', 'Edited Task')
   })
   it('should reorder tasks', () => {
     cy.addTask('First Task')
