@@ -68,7 +68,7 @@ const Task = (props: Props) => {
               aria-label="add subtask"
               data-testid="add-subtask-button"
             >
-              <LuClipboardPlus size={20} />
+              <LuClipboardPlus size={19} />
             </Button>
           )}
           <Button
