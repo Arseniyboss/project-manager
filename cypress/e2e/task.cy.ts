@@ -1,3 +1,5 @@
+import { formatDueDate } from '@/utils'
+
 beforeEach(() => {
   cy.visit('/')
   cy.addBoard('General')
@@ -20,6 +22,16 @@ describe('Task', () => {
     cy.addTask('New Task')
     cy.getByTestId('edit-task-input').clear().type('Edited Task').blur()
     cy.getByTestId('task-list').should('contain', 'Edited Task')
+  })
+  it('should add a due date', () => {
+    const currentDate = new Date()
+    const currentDay = currentDate.getDate()
+    const dueDate = formatDueDate(currentDate)
+
+    cy.addTask('New Task')
+    cy.getByTestId('show-datepicker-button').click()
+    cy.getCurrentMonthDays().contains(currentDay).click()
+    cy.getByTestId('due-date').should('have.text', dueDate)
   })
   it('should reorder tasks', () => {
     cy.addTask('First Task')

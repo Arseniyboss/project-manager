@@ -10,8 +10,9 @@ import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { useUpdateEffect } from '@/hooks/useUpdateEffect'
 import { Task as TaskProps } from '@/types/task'
 import { Button } from '@/styles'
-import { TaskCard, CardBody, IconGroup, BoardTag } from './styles'
+import { Card, CardBody, CardFooter, IconGroup, Tag } from './styles'
 import SubtaskList from '@/components/subtask/SubtaskList'
+import DueDate from './DueDate'
 
 type CustomProps = {
   showAllTasks?: boolean
@@ -20,8 +21,16 @@ type CustomProps = {
 type Props = TaskProps & DraggableProvided & CustomProps
 
 const Task = (props: Props) => {
-  const { id, boardId, title, showAllTasks, draggableProps, dragHandleProps, innerRef } =
-    props
+  const {
+    id,
+    boardId,
+    title,
+    dueDate,
+    showAllTasks,
+    draggableProps,
+    dragHandleProps,
+    innerRef,
+  } = props
 
   const [task, setTask] = useState<string>(title)
 
@@ -44,12 +53,11 @@ const Task = (props: Props) => {
   }, [task])
 
   return (
-    <TaskCard
+    <Card
       {...dragHandleProps}
       {...draggableProps}
       ref={innerRef}
       $themeStyles={themeStyles}
-      $paddingBottom={subtasks.length !== 0 && !showAllTasks}
       data-testid="task"
     >
       <CardBody>
@@ -79,8 +87,11 @@ const Task = (props: Props) => {
         </IconGroup>
       </CardBody>
       <SubtaskList subtasks={subtasks} taskId={id} />
-      {showAllTasks && <BoardTag $themeStyles={themeStyles}>{board!.title}</BoardTag>}
-    </TaskCard>
+      <CardFooter>
+        {showAllTasks && <Tag $themeStyles={themeStyles}>{board!.title}</Tag>}
+        <DueDate taskId={id} dueDate={dueDate} />
+      </CardFooter>
+    </Card>
   )
 }
 

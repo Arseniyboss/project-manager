@@ -9,9 +9,9 @@ export const Button = styled.button`
   background: none;
   color: inherit;
   font-size: inherit;
+  cursor: pointer;
 
   svg {
     display: inherit;
-    cursor: pointer;
   }
 `

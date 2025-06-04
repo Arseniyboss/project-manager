@@ -18,9 +18,7 @@ const SubtaskForm = ({ taskId }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const { themeStyles } = useTheme()
-  const { isAdding, setIsAdding, addSubtask, filterSubtasks } = useSubtaskContext()
-
-  const subtasks = filterSubtasks(taskId)
+  const { isAdding, setIsAdding, addSubtask } = useSubtaskContext()
 
   useAutoResizeTextArea(textareaRef, title)
 
@@ -43,10 +41,7 @@ const SubtaskForm = ({ taskId }: Props) => {
     handleAddSubtask()
   }
   return (
-    <SubtaskCard
-      $themeStyles={themeStyles}
-      $noMarginBottom={isAdding && subtasks.length === 0}
-    >
+    <SubtaskCard $themeStyles={themeStyles}>
       <CardBody>
         <CheckboxWrapper>
           <input type="checkbox" disabled />

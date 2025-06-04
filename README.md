@@ -38,6 +38,7 @@ Project manager built with React
 - Add tasks
 - Delete tasks
 - Edit tasks
+- Add due dates
 - Reorder tasks
 - Drag and drop tasks between columns
 - Autosave tasks in localStorage

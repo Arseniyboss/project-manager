@@ -8,6 +8,7 @@ export type Task = {
   boardId: string
   title: string
   status: Status
+  dueDate?: string
 }
 
 export type CurrentStatus = Status | ''
@@ -24,5 +25,6 @@ export type TaskContextType = {
   deleteTask: (id: string) => void
   deleteBoardTasks: (boardId: string) => void
   editTask: (id: string, title: string) => void
+  addDueDate: (id: string, dueDate: string) => void
   filterTasks: (status: Status, boardId?: string) => Task[]
 }

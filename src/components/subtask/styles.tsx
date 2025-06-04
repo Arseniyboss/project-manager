@@ -1,21 +1,12 @@
 import styled from 'styled-components'
 import { Card } from '@/components/task/styles'
 
-type SubtaskCardProps = {
-  $noMarginBottom?: boolean
-}
-
-type SubtaskListContainerProps = {
-  $marginTop: boolean
-}
-
-export const SubtaskCard = styled(Card)<SubtaskCardProps>`
+export const SubtaskCard = styled(Card)`
   background: ${({ $themeStyles }) => $themeStyles.subtaskCardColor};
-  margin-bottom: ${({ $noMarginBottom }) => $noMarginBottom && 0};
 `
 
-export const SubtaskListContainer = styled.ul<SubtaskListContainerProps>`
-  margin-top: ${({ $marginTop }) => $marginTop && '0.8rem'};
+export const SubtaskListContainer = styled.ul`
+  margin-top: 0.5rem;
   max-height: 315px;
   overflow-y: auto;
 `

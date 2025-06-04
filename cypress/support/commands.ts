@@ -2,6 +2,10 @@ Cypress.Commands.add('getByTestId', (testId) => {
   cy.get(`[data-testid=${testId}]`)
 })
 
+Cypress.Commands.add('getCurrentMonthDays', () => {
+  cy.get('.react-datepicker__day:not(.react-datepicker__day--outside-month)')
+})
+
 Cypress.Commands.add('addBoard', (board) => {
   cy.getByTestId('add-board-button').click()
   cy.getByTestId('add-board-input').type(`${board}{enter}`)

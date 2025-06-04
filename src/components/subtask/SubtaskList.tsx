@@ -20,7 +20,6 @@ const SubtaskList = ({ subtasks, taskId }: Props) => {
           <SubtaskListContainer
             {...provided.droppableProps}
             ref={provided.innerRef}
-            $marginTop={subtasks.length !== 0 || (isAdding && isCurrentTask(taskId))}
             data-testid="subtask-list"
           >
             {subtasks.map((subtask, index) => (

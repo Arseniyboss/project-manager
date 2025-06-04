@@ -99,6 +99,13 @@ export const TaskContextProvider = ({ children }: Props) => {
     setTasks(updatedTasks)
   }
 
+  const addDueDate = (id: string, dueDate: string) => {
+    const updatedTasks = tasks.map((task) => {
+      return task.id === id ? { ...task, dueDate } : task
+    })
+    setTasks(updatedTasks)
+  }
+
   const value = {
     statuses,
     tasks,
@@ -111,6 +118,7 @@ export const TaskContextProvider = ({ children }: Props) => {
     deleteTask,
     deleteBoardTasks,
     editTask,
+    addDueDate,
     filterTasks,
   }
 
