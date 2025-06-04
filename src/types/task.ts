@@ -11,6 +11,10 @@ export type Task = {
   dueDate?: string
 }
 
+export interface CalendarTask extends Task {
+  dueDate: string
+}
+
 export type CurrentStatus = Status | ''
 
 export type TaskContextType = {
@@ -26,5 +30,6 @@ export type TaskContextType = {
   deleteBoardTasks: (boardId: string) => void
   editTask: (id: string, title: string) => void
   addDueDate: (id: string, dueDate: string) => void
-  filterTasks: (status: Status, boardId?: string) => Task[]
+  filterBoardTasks: (status: Status, boardId?: string) => Task[]
+  filterCalendarTasks: (boardId?: string) => CalendarTask[]
 }

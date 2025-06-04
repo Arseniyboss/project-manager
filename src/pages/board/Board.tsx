@@ -1,5 +1,8 @@
 import { FiSidebar } from 'react-icons/fi'
+import { HiOutlineViewColumns } from 'react-icons/hi2'
+import { LuCalendarDays } from 'react-icons/lu'
 import { DragDropContext } from '@hello-pangea/dnd'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
 import { useTaskContext } from '@/hooks/useTaskContext'
@@ -11,8 +14,11 @@ import {
   Heading,
   BoardWrapper,
 } from './styles'
-import BoardColumn from '@/components/board-column/BoardColumn'
+import { BoardView } from '@/types/board'
+import { Button } from '@/styles'
 import NotFound from '@/pages/NotFound'
+import BoardColumn from '@/components/board-column/BoardColumn'
+import CalendarView from '@/components/calendar/CalendarView'
 
 type Params = {
   id: string
@@ -23,12 +29,24 @@ type Props = {
 }
 
 const Board = ({ showAllTasks }: Props) => {
+  const [boardView, setBoardView] = useState<BoardView>('kanban')
+
   const { isSidebarOpen, toggleSidebar } = useSidebarContext()
-  const { statuses, handleDrag } = useTaskContext()
+  const { statuses, handleDrag, filterCalendarTasks } = useTaskContext()
   const { getCurrentBoard } = useBoardContext()
 
-  const { id } = useParams() as Params
-  const board = getCurrentBoard(id)
+  const { id: boardId } = useParams() as Params
+  const board = getCurrentBoard(boardId)
+
+  const calendarTasks = showAllTasks
+    ? filterCalendarTasks()
+    : filterCalendarTasks(boardId)
+
+  const nextView = boardView === 'kanban' ? 'calendar' : 'kanban'
+
+  const toggleBoardView = () => {
+    setBoardView(nextView)
+  }
 
   if (!showAllTasks && !board) {
     return <NotFound />
@@ -45,19 +63,26 @@ const Board = ({ showAllTasks }: Props) => {
           <FiSidebar className="sidebarIcon" />
         </SidebarIconContainer>
         <Heading>{showAllTasks ? 'All Tasks' : board!.title}</Heading>
+        <Button onClick={toggleBoardView} aria-label={`show ${nextView} view`}>
+          {boardView === 'calendar' && <HiOutlineViewColumns size={25} />}
+          {boardView === 'kanban' && <LuCalendarDays size={25} />}
+        </Button>
       </Header>
-      <BoardWrapper>
-        <DragDropContext onDragEnd={handleDrag}>
-          {statuses.map((status, index) => (
-            <BoardColumn
-              key={index}
-              status={status}
-              boardId={id}
-              showAllTasks={showAllTasks}
-            />
-          ))}
-        </DragDropContext>
-      </BoardWrapper>
+      {boardView === 'kanban' && (
+        <BoardWrapper>
+          <DragDropContext onDragEnd={handleDrag}>
+            {statuses.map((status, index) => (
+              <BoardColumn
+                key={index}
+                status={status}
+                boardId={boardId}
+                showAllTasks={showAllTasks}
+              />
+            ))}
+          </DragDropContext>
+        </BoardWrapper>
+      )}
+      {boardView === 'calendar' && <CalendarView tasks={calendarTasks} />}
     </BoardSection>
   )
 }

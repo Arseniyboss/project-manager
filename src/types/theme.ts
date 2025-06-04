@@ -9,6 +9,9 @@ export type ThemeStyles = {
   sidebarColor: string
   currentBoardColor: string
   currentBoardShadowColor: string
+  calendarArrowBackground: string
+  calendarHeaderColor: string
+  calendarTaskColor: string
 }
 
 export type Themes = Record<Theme, ThemeStyles>

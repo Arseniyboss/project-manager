@@ -25,7 +25,7 @@ export const SidebarContainer = styled.aside<Props>`
   @media screen and (max-width: ${MOBILE_SIDEBAR_BREAKPOINT}px) {
     position: absolute;
     width: 100vw;
-    z-index: 1;
+    z-index: 999;
   }
 `
 

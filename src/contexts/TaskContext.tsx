@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from 'react'
 import { DropResult } from '@hello-pangea/dnd'
-import { TaskContextType, Task, Status, CurrentStatus } from '@/types/task'
+import { TaskContextType, Task, CalendarTask, Status, CurrentStatus } from '@/types/task'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { useSubtaskContext } from '@/hooks/useSubtaskContext'
 
@@ -23,16 +23,23 @@ export const TaskContextProvider = ({ children }: Props) => {
     return status === currentStatus
   }
 
-  const filterTasks = (status: Status, boardId?: string) => {
+  const filterBoardTasks = (status: Status, boardId?: string) => {
     return tasks.filter((task) => {
       const matchesBoard = boardId ? task.boardId === boardId : true
       return matchesBoard && task.status === status
     })
   }
 
+  const filterCalendarTasks = (boardId?: string) => {
+    return tasks.filter((task): task is CalendarTask => {
+      const matchesBoard = boardId ? task.boardId === boardId : true
+      return matchesBoard && !!task.dueDate
+    })
+  }
+
   const dragTask = (task: Task, newStatus: Status, newIndex: number) => {
     const reorderedTasks = [...tasks]
-    const boardColumnTasks = filterTasks(newStatus, task.boardId)
+    const boardColumnTasks = filterBoardTasks(newStatus, task.boardId)
     const updatedTask = boardColumnTasks[newIndex]
     const draggableTaskIndex = tasks.findIndex(({ id }) => id === task.id)
     const updatedTaskIndex = tasks.findIndex(({ id }) => id === updatedTask.id)
@@ -119,7 +126,8 @@ export const TaskContextProvider = ({ children }: Props) => {
     deleteBoardTasks,
     editTask,
     addDueDate,
-    filterTasks,
+    filterBoardTasks,
+    filterCalendarTasks,
   }
 
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>

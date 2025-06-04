@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
+    "date-fns": "^4.1.0",
     "react": "^19.1.0",
+    "react-big-calendar": "^1.18.0",
     "react-datepicker": "^8.3.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.1.0",
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@types/node": "^22.15.2",
     "@types/react": "^19.1.2",
+    "@types/react-big-calendar": "^1.16.1",
     "@types/react-dom": "^19.1.2",
     "@typescript-eslint/eslint-plugin": "^8.31.0",
     "@typescript-eslint/parser": "^8.31.0",

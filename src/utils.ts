@@ -1,3 +1,8 @@
+import { dateFnsLocalizer } from 'react-big-calendar'
+import { format, getDay, startOfWeek } from 'date-fns'
+import { enUS } from 'date-fns/locale/en-US'
+import { CalendarTask } from './types/task'
+
 export const MOBILE_SIDEBAR_BREAKPOINT = 768
 
 export const isMobileViewport = () => {
@@ -12,3 +17,19 @@ export const parseDueDate = (dueDate: string) => {
 export const formatDueDate = (dueDate: Date) => {
   return dueDate.toLocaleDateString('ru-RU')
 }
+
+export const getEvents = (tasks: CalendarTask[]) => {
+  return tasks.map((task) => ({
+    id: task.id,
+    title: task.title,
+    start: parseDueDate(task.dueDate),
+    end: parseDueDate(task.dueDate),
+  }))
+}
+
+export const dateLocalizer = dateFnsLocalizer({
+  locales: { 'en-US': enUS },
+  startOfWeek: (date: Date) => startOfWeek(date, { weekStartsOn: 1 }),
+  format,
+  getDay,
+})

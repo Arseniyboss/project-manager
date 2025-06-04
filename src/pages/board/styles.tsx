@@ -17,12 +17,10 @@ export const BoardSection = styled.main`
 
 export const Header = styled.header`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 `
 
 export const SidebarIconContainer = styled(Button)<Props>`
-  position: absolute;
   visibility: ${({ $isSidebarOpen }) => $isSidebarOpen && 'hidden'};
 `
 

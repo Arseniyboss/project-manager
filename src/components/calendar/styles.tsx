@@ -1,0 +1,60 @@
+import styled from 'styled-components'
+import { ThemeStyles } from '@/types/theme'
+
+type Props = {
+  $themeStyles: ThemeStyles
+}
+
+export const CalendarWrapper = styled.div<Props>`
+  height: 100vh;
+
+  * {
+    overflow-y: auto;
+  }
+
+  .rbc-header {
+    background: ${({ $themeStyles }) => $themeStyles.calendarHeaderColor};
+    padding: 0.5rem;
+  }
+
+  .rbc-event-content {
+    white-space: normal;
+    font-size: 0.9rem;
+  }
+
+  .rbc-off-range-bg {
+    background: inherit;
+  }
+
+  .rbc-today {
+    background: inherit;
+  }
+
+  .rbc-date-cell,
+  .rbc-event {
+    pointer-events: none;
+  }
+
+  .rbc-row-segment {
+    padding: 0.1rem 0.3rem;
+  }
+
+  .rbc-row-bg {
+    right: 0;
+  }
+`
+
+export const CalendarHeaderWrapper = styled.div<Props>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+
+  button {
+    background: ${({ $themeStyles }) => $themeStyles.calendarArrowBackground};
+    border-radius: 0.25rem;
+    padding: 0.2rem;
+  }
+`

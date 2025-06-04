@@ -48,6 +48,25 @@ const GlobalStyle = createGlobalStyle<Props>`
   .sidebarIcon {
     font-size: 1.5rem;
   }
+
+  .rbc-overlay {
+    background: ${({ themeStyles }) => themeStyles.background};
+  }
+
+  .rbc-show-more {
+    color: inherit;
+    background: none;
+
+    &:hover, &:focus {
+      color: inherit;
+    }
+  }
+
+  .rbc-event {
+    background: ${({ themeStyles }) => themeStyles.calendarTaskColor};
+    color: ${({ themeStyles }) => themeStyles.color};
+    pointer-events: none;
+  }
 `
 
 export default GlobalStyle

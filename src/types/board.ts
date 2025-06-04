@@ -9,6 +9,8 @@ export type Board = {
 // ensures correct return types for types that use Board type in Sidebar Board component
 export type BoardType = Board
 
+export type BoardView = 'kanban' | 'calendar'
+
 export type BoardContextType = {
   isAdding: boolean
   boards: Board[]
