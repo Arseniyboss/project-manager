@@ -52,11 +52,24 @@ export const Tag = styled.span<Props>`
   }
 `
 
-export const DatePickerWrapper = styled.div`
+export const DatePickerWrapper = styled.div<Props>`
   cursor: default;
 
   button:focus {
     outline: none;
+  }
+
+  .react-datepicker {
+    overflow: hidden;
+  }
+
+  .react-datepicker__month-container,
+  .react-datepicker__header {
+    background: ${({ $themeStyles }) => $themeStyles.datePickerBackground};
+
+    * {
+      color: ${({ $themeStyles }) => $themeStyles.datePickerColor};
+    }
   }
 
   .react-datepicker__triangle {
@@ -64,7 +77,14 @@ export const DatePickerWrapper = styled.div`
   }
 
   .react-datepicker__navigation-icon::before {
-    border-color: grey;
+    border-color: ${({ $themeStyles }) => $themeStyles.datePickerArrowColor};
+  }
+
+  .react-datepicker__day {
+    &:hover {
+      background: ${({ $themeStyles }) => $themeStyles.datePickerSelectedDayBackground};
+      color: ${({ $themeStyles }) => $themeStyles.datePickerSelectedDayColor};
+    }
   }
 
   .react-datepicker__day--outside-month {
@@ -77,10 +97,12 @@ export const DatePickerWrapper = styled.div`
   }
 
   .react-datepicker__day--selected {
-    background: black;
+    background: ${({ $themeStyles }) => $themeStyles.datePickerColor};
+    color: ${({ $themeStyles }) => $themeStyles.datePickerBackground};
 
     &:hover {
-      background: black;
+      background: ${({ $themeStyles }) => $themeStyles.datePickerColor};
+      color: ${({ $themeStyles }) => $themeStyles.datePickerBackground};
     }
 
     &:focus {
@@ -94,10 +116,6 @@ export const DatePickerWrapper = styled.div`
     &:focus-visible {
       outline: 1px solid #aaa;
     }
-
-    &:hover {
-      background: #f0f0f0;
-    }
   }
 
   .react-datepicker__day--today {
@@ -106,6 +124,7 @@ export const DatePickerWrapper = styled.div`
   }
 
   .react-datepicker__day--today:not(.react-datepicker__day--selected) {
-    background: #f0f0f0;
+    background: ${({ $themeStyles }) => $themeStyles.datePickerSelectedDayBackground};
+    color: ${({ $themeStyles }) => $themeStyles.datePickerSelectedDayColor};
   }
 `

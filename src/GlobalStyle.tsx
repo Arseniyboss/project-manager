@@ -50,7 +50,7 @@ const GlobalStyle = createGlobalStyle<Props>`
   }
 
   .rbc-overlay {
-    background: ${({ themeStyles }) => themeStyles.background};
+    background: ${({ themeStyles }) => themeStyles.calendarOverlayColor};
   }
 
   .rbc-show-more {

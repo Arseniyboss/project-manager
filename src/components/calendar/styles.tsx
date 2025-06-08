@@ -22,12 +22,8 @@ export const CalendarWrapper = styled.div<Props>`
     font-size: 0.9rem;
   }
 
-  .rbc-off-range-bg {
-    background: inherit;
-  }
-
-  .rbc-today {
-    background: inherit;
+  .rbc-day-bg {
+    background: ${({ $themeStyles }) => $themeStyles.calendarDayColor};
   }
 
   .rbc-date-cell,

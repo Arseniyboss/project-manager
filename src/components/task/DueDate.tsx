@@ -27,11 +27,12 @@ const DueDate = ({ taskId, dueDate }: Props) => {
     addDueDate(taskId, formattedDueDate)
   }
   return (
-    <DatePickerWrapper>
+    <DatePickerWrapper $themeStyles={themeStyles}>
       <DatePicker
         selected={selectedDueDate}
         onChange={handleChange}
         popperPlacement="bottom-start"
+        calendarStartDay={1}
         customInput={
           <Button data-testid="show-datepicker-button" aria-label="set due date">
             {dueDate ? (

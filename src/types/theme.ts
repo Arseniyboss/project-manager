@@ -11,7 +11,14 @@ export type ThemeStyles = {
   currentBoardShadowColor: string
   calendarArrowBackground: string
   calendarHeaderColor: string
+  calendarDayColor: string
   calendarTaskColor: string
+  calendarOverlayColor: string
+  datePickerArrowColor: string
+  datePickerColor: string
+  datePickerBackground: string
+  datePickerSelectedDayColor: string
+  datePickerSelectedDayBackground: string
 }
 
 export type Themes = Record<Theme, ThemeStyles>
