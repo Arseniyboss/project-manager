@@ -12,6 +12,13 @@ export const CalendarWrapper = styled.div<Props>`
     overflow-y: auto;
   }
 
+  .rbc-month-header,
+  .rbc-month-view,
+  .rbc-day-bg {
+    border-left: 0.5px solid #ddd;
+    border-right: 0.5px solid #ddd;
+  }
+
   .rbc-header {
     background: ${({ $themeStyles }) => $themeStyles.calendarHeaderColor};
     padding: 0.5rem;
@@ -32,7 +39,7 @@ export const CalendarWrapper = styled.div<Props>`
   }
 
   .rbc-row-segment {
-    padding: 0.1rem 0.3rem;
+    padding: 0.1rem 0.25rem;
   }
 
   .rbc-row-bg {
