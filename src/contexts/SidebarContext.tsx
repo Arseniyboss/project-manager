@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from 'react'
-import { useTaskContext } from '@/hooks/useTaskContext'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { isMobileViewport } from '@/utils'
 
 export type SidebarContextType = {
@@ -7,7 +7,6 @@ export type SidebarContextType = {
   isSidebarOpen: boolean
   toggleSidebar: () => void
   closeMobileSidebar: () => void
-  handleLinkClick: () => void
 }
 
 type Props = {
@@ -19,9 +18,10 @@ export const SidebarContext = createContext<SidebarContextType | null>(null)
 export const SidebarContextProvider = ({ children }: Props) => {
   const [isMobile, setIsMobile] = useState(() => isMobileViewport())
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
-  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true)
-
-  const { setIsAdding } = useTaskContext()
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useLocalStorage(
+    'isDesktopSidebarOpen',
+    true
+  )
 
   const isSidebarOpen = isMobile ? isMobileSidebarOpen : isDesktopSidebarOpen
 
@@ -37,11 +37,6 @@ export const SidebarContextProvider = ({ children }: Props) => {
     if (isMobile) {
       setIsMobileSidebarOpen(false)
     }
-  }
-
-  const handleLinkClick = () => {
-    closeMobileSidebar()
-    setIsAdding(false)
   }
 
   const handleResize = () => {
@@ -60,7 +55,6 @@ export const SidebarContextProvider = ({ children }: Props) => {
     isSidebarOpen,
     toggleSidebar,
     closeMobileSidebar,
-    handleLinkClick,
   }
 
   return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>

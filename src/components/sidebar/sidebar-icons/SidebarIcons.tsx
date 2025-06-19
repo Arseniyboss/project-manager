@@ -6,7 +6,7 @@ import { useSidebarContext } from '@/hooks/useSidebarContext'
 import ThemeSwitcher from '@/components/sidebar/sidebar-icons/ThemeSwitcher'
 
 const SidebarIcons = () => {
-  const { toggleSidebar, handleLinkClick } = useSidebarContext()
+  const { toggleSidebar, closeMobileSidebar } = useSidebarContext()
   return (
     <FlexGroup>
       <IconGroup>
@@ -17,7 +17,7 @@ const SidebarIcons = () => {
         >
           <FiSidebar className="sidebarIcon" />
         </Button>
-        <Button as={Link} to="/" aria-label="home link" onClick={handleLinkClick}>
+        <Button as={Link} to="/" aria-label="home link" onClick={closeMobileSidebar}>
           <FiHome className="sidebarIcon" />
         </Button>
       </IconGroup>

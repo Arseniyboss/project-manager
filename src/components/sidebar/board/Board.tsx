@@ -28,7 +28,7 @@ const Board = (props: Props) => {
   const { themeStyles } = useTheme()
   const { getAdjacentBoard, editBoard, deleteBoard, calculateBoardProgress } =
     useBoardContext()
-  const { handleLinkClick } = useSidebarContext()
+  const { closeMobileSidebar } = useSidebarContext()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -69,7 +69,7 @@ const Board = (props: Props) => {
             to={`/board/${id}`}
             aria-label={title}
             aria-current={isCurrentBoard && 'page'}
-            onClick={handleLinkClick}
+            onClick={closeMobileSidebar}
           >
             <HiOutlineViewColumns className="sidebarIcon" />
           </Link>
