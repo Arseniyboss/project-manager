@@ -2,8 +2,8 @@ import { FiSidebar } from 'react-icons/fi'
 import { HiOutlineViewColumns } from 'react-icons/hi2'
 import { LuCalendarDays } from 'react-icons/lu'
 import { DragDropContext } from '@hello-pangea/dnd'
-import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
 import { useTaskContext } from '@/hooks/useTaskContext'
 import { useBoardContext } from '@/hooks/useBoardContext'
@@ -29,7 +29,7 @@ type Props = {
 }
 
 const Board = ({ showAllTasks }: Props) => {
-  const [boardView, setBoardView] = useState<BoardView>('kanban')
+  const [boardView, setBoardView] = useLocalStorage<BoardView>('boardView', 'kanban')
 
   const { isSidebarOpen, toggleSidebar } = useSidebarContext()
   const { statuses, handleDrag, filterCalendarTasks } = useTaskContext()
