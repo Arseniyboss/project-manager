@@ -8,10 +8,6 @@ type Props = {
 export const CalendarWrapper = styled.div<Props>`
   height: 100vh;
 
-  * {
-    overflow-y: auto;
-  }
-
   .rbc-month-header,
   .rbc-month-view,
   .rbc-day-bg {
@@ -25,7 +21,6 @@ export const CalendarWrapper = styled.div<Props>`
   }
 
   .rbc-event-content {
-    white-space: normal;
     font-size: 0.9rem;
   }
 
