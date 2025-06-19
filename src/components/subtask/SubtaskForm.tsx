@@ -2,6 +2,7 @@ import { FaCircleCheck } from 'react-icons/fa6'
 import { isMobile } from 'react-device-detect'
 import { KeyboardEvent, useState, useRef, useEffect } from 'react'
 import { useTheme } from '@/hooks/useTheme'
+import { useOnClickOutside } from '@/hooks/useOnClickOutside'
 import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { useSubtaskContext } from '@/hooks/useSubtaskContext'
 import { CardBody } from '@/components/task/styles'
@@ -15,11 +16,13 @@ type Props = {
 const SubtaskForm = ({ taskId }: Props) => {
   const [title, setTitle] = useState<string>('')
 
+  const subtaskRef = useRef<HTMLLIElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const { themeStyles } = useTheme()
   const { isAdding, setIsAdding, addSubtask } = useSubtaskContext()
 
+  useOnClickOutside(subtaskRef, () => setIsAdding(false))
   useAutoResizeTextArea(textareaRef, title)
 
   useEffect(() => {
@@ -41,7 +44,7 @@ const SubtaskForm = ({ taskId }: Props) => {
     handleAddSubtask()
   }
   return (
-    <SubtaskCard $themeStyles={themeStyles}>
+    <SubtaskCard ref={subtaskRef} $themeStyles={themeStyles}>
       <CardBody>
         <CheckboxWrapper>
           <input type="checkbox" disabled />

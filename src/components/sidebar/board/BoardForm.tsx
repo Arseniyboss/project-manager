@@ -2,6 +2,7 @@ import { KeyboardEvent, useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTheme } from '@/hooks/useTheme'
 import { useBoardContext } from '@/hooks/useBoardContext'
+import { useOnClickOutside } from '@/hooks/useOnClickOutside'
 import { HiOutlineViewColumns } from 'react-icons/hi2'
 import { FaCircleCheck } from 'react-icons/fa6'
 import { Button } from '@/styles'
@@ -9,11 +10,16 @@ import { BoardContainer, FlexGroup } from './styles'
 
 const BoardForm = () => {
   const [title, setTitle] = useState<string>('')
+
+  const boardRef = useRef<HTMLLIElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
   const navigate = useNavigate()
 
   const { themeStyles } = useTheme()
   const { boards, isAdding, setIsAdding, addBoard } = useBoardContext()
+
+  useOnClickOutside(boardRef, () => setIsAdding(false))
 
   useEffect(() => {
     if (isAdding) {
@@ -38,7 +44,7 @@ const BoardForm = () => {
     handleAddBoard()
   }
   return (
-    <BoardContainer $themeStyles={themeStyles} $isAdding={isAdding}>
+    <BoardContainer ref={boardRef} $themeStyles={themeStyles} $isAdding={isAdding}>
       <FlexGroup>
         <HiOutlineViewColumns className="sidebarIcon" />
         <input

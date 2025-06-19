@@ -3,6 +3,7 @@ import { isMobile } from 'react-device-detect'
 import { KeyboardEvent, useState, useRef, useEffect } from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { useTaskContext } from '@/hooks/useTaskContext'
+import { useOnClickOutside } from '@/hooks/useOnClickOutside'
 import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { Status } from '@/types/task'
 import { Button } from '@/styles'
@@ -16,11 +17,13 @@ type Props = {
 const TaskForm = ({ status, boardId }: Props) => {
   const [title, setTitle] = useState<string>('')
 
+  const taskRef = useRef<HTMLLIElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const { themeStyles } = useTheme()
   const { isAdding, setIsAdding, addTask } = useTaskContext()
 
+  useOnClickOutside(taskRef, () => setIsAdding(false))
   useAutoResizeTextArea(textareaRef, title)
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const TaskForm = ({ status, boardId }: Props) => {
     handleAddTask()
   }
   return (
-    <Card $themeStyles={themeStyles}>
+    <Card ref={taskRef} $themeStyles={themeStyles}>
       <CardBody>
         <textarea
           value={title}
