@@ -13,6 +13,7 @@ export const BoardContext = createContext<BoardContextType | null>(null)
 export const BoardContextProvider = ({ children }: Props) => {
   const [boards, setBoards] = useLocalStorage<Board[]>('boards', [])
   const [isAdding, setIsAdding] = useState<boolean>(false)
+  const [isDeleting, setIsDeleting] = useState<boolean>(false)
 
   const { tasks, deleteBoardTasks } = useTaskContext()
 
@@ -86,11 +87,13 @@ export const BoardContextProvider = ({ children }: Props) => {
 
   const value = {
     isAdding,
+    isDeleting,
     boards,
     getCurrentBoard,
     getAdjacentBoard,
     calculateBoardProgress,
     setIsAdding,
+    setIsDeleting,
     addBoard,
     deleteBoard,
     editBoard,

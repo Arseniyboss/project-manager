@@ -13,11 +13,13 @@ export type BoardView = 'kanban' | 'calendar'
 
 export type BoardContextType = {
   isAdding: boolean
+  isDeleting: boolean
   boards: Board[]
   getCurrentBoard: (id: string) => Board | undefined
   getAdjacentBoard: (currentBoardId: string) => Board | undefined
   calculateBoardProgress: (boardId: string) => number
   setIsAdding: Dispatch<SetStateAction<boolean>>
+  setIsDeleting: Dispatch<SetStateAction<boolean>>
   addBoard: (id: string, title: string) => void
   deleteBoard: (id: string) => void
   editBoard: (id: string, title: string) => void

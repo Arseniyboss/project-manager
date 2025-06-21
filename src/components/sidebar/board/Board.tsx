@@ -5,8 +5,8 @@ import { HiOutlineViewColumns } from 'react-icons/hi2'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useUpdateEffect } from '@/hooks/useUpdateEffect'
 import { useTheme } from '@/hooks/useTheme'
-import { useBoardContext } from '@/hooks/useBoardContext'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
+import { useBoardContext } from '@/hooks/useBoardContext'
 import { BoardType } from '@/types/board'
 import { Button } from '@/styles'
 import {
@@ -26,9 +26,14 @@ const Board = (props: Props) => {
   const [board, setBoard] = useState(title)
 
   const { themeStyles } = useTheme()
-  const { getAdjacentBoard, editBoard, deleteBoard, calculateBoardProgress } =
-    useBoardContext()
   const { closeMobileSidebar } = useSidebarContext()
+  const {
+    getAdjacentBoard,
+    editBoard,
+    deleteBoard,
+    calculateBoardProgress,
+    setIsDeleting,
+  } = useBoardContext()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -50,6 +55,7 @@ const Board = (props: Props) => {
   }
 
   const handleDelete = () => {
+    setIsDeleting(true)
     deleteBoard(id)
     if (!isCurrentBoard) return
     navigateToAdjacentBoard()

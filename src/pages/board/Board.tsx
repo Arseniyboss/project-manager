@@ -33,7 +33,7 @@ const Board = ({ showAllTasks }: Props) => {
 
   const { isSidebarOpen, toggleSidebar } = useSidebarContext()
   const { statuses, handleDrag, filterCalendarTasks } = useTaskContext()
-  const { getCurrentBoard } = useBoardContext()
+  const { isDeleting, getCurrentBoard } = useBoardContext()
 
   const { id: boardId } = useParams() as Params
   const board = getCurrentBoard(boardId)
@@ -48,7 +48,8 @@ const Board = ({ showAllTasks }: Props) => {
     setBoardView(nextView)
   }
 
-  if (!showAllTasks && !board) {
+  // redirect to all tasks board if the current board does not exist
+  if (!showAllTasks && !board && !isDeleting) {
     return <NotFound />
   }
   return (
