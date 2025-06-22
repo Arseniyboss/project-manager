@@ -33,7 +33,7 @@ const Board = ({ showAllTasks }: Props) => {
 
   const { isSidebarOpen, toggleSidebar } = useSidebarContext()
   const { statuses, handleDrag, filterCalendarTasks } = useTaskContext()
-  const { getCurrentBoard } = useBoardContext()
+  const { lastDeletedBoard, getCurrentBoard } = useBoardContext()
 
   const { id: boardId } = useParams() as Params
   const board = getCurrentBoard(boardId)
@@ -48,7 +48,7 @@ const Board = ({ showAllTasks }: Props) => {
     setBoardView(nextView)
   }
 
-  if (!showAllTasks && !board) {
+  if (!showAllTasks && !board && !lastDeletedBoard) {
     return <NotFound />
   }
   return (
@@ -62,7 +62,9 @@ const Board = ({ showAllTasks }: Props) => {
         >
           <FiSidebar className="sidebarIcon" />
         </SidebarIconContainer>
-        <Heading>{showAllTasks ? 'All Tasks' : board!.title}</Heading>
+        <Heading>
+          {showAllTasks ? 'All Tasks' : board?.title || lastDeletedBoard?.title}
+        </Heading>
         <Button onClick={toggleBoardView} aria-label={`show ${nextView} view`}>
           {boardView === 'calendar' && <HiOutlineViewColumns size={25} />}
           {boardView === 'kanban' && <LuCalendarDays size={25} />}

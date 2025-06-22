@@ -14,6 +14,7 @@ export type BoardView = 'kanban' | 'calendar'
 export type BoardContextType = {
   isAdding: boolean
   boards: Board[]
+  lastDeletedBoard: Board | null
   getCurrentBoard: (id: string) => Board | undefined
   getAdjacentBoard: (currentBoardId: string) => Board | undefined
   calculateBoardProgress: (boardId: string) => number
