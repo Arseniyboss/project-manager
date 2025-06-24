@@ -54,7 +54,6 @@ const BoardForm = () => {
           onKeyDown={handleEnter}
           data-testid="add-board-input"
         />
-
         <Button
           onClick={handleAddBoard}
           aria-label="add board"

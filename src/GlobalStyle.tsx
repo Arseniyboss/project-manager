@@ -47,6 +47,7 @@ const GlobalStyle = createGlobalStyle<Props>`
 
   .sidebarIcon {
     font-size: 1.5rem;
+    flex-shrink: 0;
   }
 
   .rbc-overlay {
