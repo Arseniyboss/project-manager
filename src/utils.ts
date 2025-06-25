@@ -5,6 +5,8 @@ import { CalendarTask } from './types/task'
 
 export const MOBILE_SIDEBAR_BREAKPOINT = 768
 
+export const isAppleDevice = /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent)
+
 export const isMobileViewport = () => {
   return window.innerWidth <= MOBILE_SIDEBAR_BREAKPOINT
 }

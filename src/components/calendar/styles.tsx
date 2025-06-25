@@ -5,14 +5,18 @@ type Props = {
   $themeStyles: ThemeStyles
 }
 
-export const CalendarWrapper = styled.div<Props>`
+interface CalendarWrapperProps extends Props {
+  $isAppleDevice: boolean
+}
+
+export const CalendarWrapper = styled.div<CalendarWrapperProps>`
   height: 100vh;
 
   .rbc-month-header,
   .rbc-month-view,
   .rbc-day-bg {
-    border-left: 0.5px solid #ddd;
-    border-right: 0.5px solid #ddd;
+    border-left: ${({ $isAppleDevice }) => $isAppleDevice && '0.5px solid #ddd'};
+    border-right: ${({ $isAppleDevice }) => $isAppleDevice && '0.5px solid #ddd'};
   }
 
   .rbc-header {
