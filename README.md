@@ -55,5 +55,6 @@ Project manager built with React
 ### Other
 
 - All Tasks Board
+- Task Calendar View
 - Board Progress Status
 - Dark Theme
