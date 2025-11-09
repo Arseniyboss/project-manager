@@ -20,6 +20,7 @@ const CalendarView = ({ tasks }: Props) => {
         localizer={dateLocalizer}
         events={events}
         components={{ toolbar: CalendarHeader }}
+        formats={{ weekdayFormat: 'eeee' }}
       />
     </CalendarWrapper>
   )
