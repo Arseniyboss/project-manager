@@ -17,12 +17,13 @@ type Props = {
 
 const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
   const { themeStyles } = useTheme()
-  const { isAdding, isCurrentColumn, handleAdd, filterBoardTasks } = useTaskContext()
+  const { isAdding, isDatePickerOpen, isCurrentColumn, handleAdd, filterBoardTasks } =
+    useTaskContext()
   const { isSubtaskHovered } = useSubtaskContext()
   const tasks = showAllTasks
     ? filterBoardTasks(status)
     : filterBoardTasks(status, boardId)
-  const isDragDisabled = isAdding || isSubtaskHovered || showAllTasks
+  const isDragDisabled = isAdding || isSubtaskHovered || isDatePickerOpen || showAllTasks
   return (
     <BoardContainer $themeStyles={themeStyles}>
       <BoardHeader>

@@ -21,8 +21,10 @@ export type TaskContextType = {
   statuses: Status[]
   tasks: Task[]
   isAdding: boolean
+  isDatePickerOpen: boolean
   isCurrentColumn: (status: Status) => boolean
   setIsAdding: Dispatch<SetStateAction<boolean>>
+  setIsDatePickerOpen: Dispatch<SetStateAction<boolean>>
   handleAdd: (status: Status) => void
   handleDrag: (result: DropResult) => void
   addTask: (boardId: string, title: string, status: Status) => void

@@ -18,7 +18,7 @@ const DueDate = ({ taskId, dueDate }: Props) => {
   const [selectedDueDate, setSelectedDueDate] = useState(initialDueDate)
 
   const { themeStyles } = useTheme()
-  const { addDueDate } = useTaskContext()
+  const { addDueDate, setIsDatePickerOpen } = useTaskContext()
 
   const handleChange = (dueDate: Date | null) => {
     if (!dueDate) return
@@ -31,6 +31,8 @@ const DueDate = ({ taskId, dueDate }: Props) => {
       <DatePicker
         selected={selectedDueDate}
         onChange={handleChange}
+        onCalendarOpen={() => setIsDatePickerOpen(true)}
+        onCalendarClose={() => setIsDatePickerOpen(false)}
         popperPlacement="bottom-start"
         calendarStartDay={1}
         customInput={

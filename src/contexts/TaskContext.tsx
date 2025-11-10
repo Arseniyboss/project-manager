@@ -15,6 +15,7 @@ export const TaskContextProvider = ({ children }: Props) => {
 
   const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', [])
   const [isAdding, setIsAdding] = useState<boolean>(false)
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
   const [currentStatus, setCurrentStatus] = useState<CurrentStatus>('')
 
   const { subtasks, setSubtasks, deleteTaskSubtasks } = useSubtaskContext()
@@ -117,8 +118,10 @@ export const TaskContextProvider = ({ children }: Props) => {
     statuses,
     tasks,
     isAdding,
+    isDatePickerOpen,
     isCurrentColumn,
     setIsAdding,
+    setIsDatePickerOpen,
     handleAdd,
     handleDrag,
     addTask,
