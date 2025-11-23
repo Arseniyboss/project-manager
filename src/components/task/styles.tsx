@@ -44,7 +44,7 @@ export const Tag = styled.span<Props>`
   white-space: nowrap;
   overflow-y: auto;
   max-width: 100%;
-  padding: 0.3rem 0.8rem;
+  padding: 0.25rem 0.8rem;
   border-radius: 1rem;
 
   &::-webkit-scrollbar {
