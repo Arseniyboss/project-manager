@@ -3,6 +3,7 @@ import { DropResult } from '@hello-pangea/dnd'
 import { TaskContextType, Task, CalendarTask, Status, CurrentStatus } from '@/types/task'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { useSubtaskContext } from '@/hooks/useSubtaskContext'
+import { parseDueDate } from '@/utils'
 
 type Props = {
   children: ReactNode
@@ -35,6 +36,14 @@ export const TaskContextProvider = ({ children }: Props) => {
     return tasks.filter((task): task is CalendarTask => {
       const matchesBoard = boardId ? task.boardId === boardId : true
       return matchesBoard && !!task.dueDate
+    })
+  }
+
+  const sortTasksByDueDate = (tasks: Task[]) => {
+    return [...tasks].sort((a, b) => {
+      const dateA = a.dueDate ? parseDueDate(a.dueDate).getTime() : Infinity
+      const dateB = b.dueDate ? parseDueDate(b.dueDate).getTime() : Infinity
+      return dateA - dateB
     })
   }
 
@@ -131,6 +140,7 @@ export const TaskContextProvider = ({ children }: Props) => {
     addDueDate,
     filterBoardTasks,
     filterCalendarTasks,
+    sortTasksByDueDate,
   }
 
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>

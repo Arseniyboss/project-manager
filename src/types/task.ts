@@ -34,4 +34,5 @@ export type TaskContextType = {
   addDueDate: (id: string, dueDate: string) => void
   filterBoardTasks: (status: Status, boardId?: string) => Task[]
   filterCalendarTasks: (boardId?: string) => CalendarTask[]
+  sortTasksByDueDate: (tasks: Task[]) => Task[]
 }
