@@ -1,23 +1,37 @@
-import { KeyboardEvent, useRef, useState } from 'react'
+import { RefObject, KeyboardEvent, ChangeEvent, useRef, useState, useEffect } from 'react'
 import { DraggableProvided } from '@hello-pangea/dnd'
 import { FaCheck, FaTrashAlt } from 'react-icons/fa'
 import { useSubtaskContext } from '@/hooks/useSubtaskContext'
 import { useTheme } from '@/hooks/useTheme'
 import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { useUpdateEffect } from '@/hooks/useUpdateEffect'
+import { scrollToBottom, isScrolledToBottom } from '@/utils'
 import { Subtask as SubtaskProps } from '@/types/subtask'
 import { Button } from '@/styles'
 import { CardBody } from '@/components/task/styles'
 import { SubtaskCard, CheckboxWrapper, CheckmarkContainer } from './styles'
 
-type Props = SubtaskProps & DraggableProvided
+type CustomProps = {
+  subtaskListRef: RefObject<HTMLUListElement | null>
+}
+
+type Props = SubtaskProps & DraggableProvided & CustomProps
 
 const Subtask = (props: Props) => {
-  const { id, title, checked, dragHandleProps, draggableProps, innerRef } = props
+  const {
+    id,
+    title,
+    checked,
+    dragHandleProps,
+    draggableProps,
+    subtaskListRef,
+    innerRef,
+  } = props
 
   const [subtask, setSubtask] = useState<string>(title)
 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const wasAtTaskBottomRef = useRef<boolean>(false)
 
   const { themeStyles } = useTheme()
   const { deleteSubtask, editSubtask, toggleSubtask, setIsSubtaskHovered } =
@@ -30,6 +44,19 @@ const Subtask = (props: Props) => {
     if (!trimmedSubtask) return
     editSubtask(id, trimmedSubtask)
   }, [subtask])
+
+  useEffect(() => {
+    if (wasAtTaskBottomRef.current) {
+      scrollToBottom(subtaskListRef.current)
+    }
+  }, [subtask])
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (subtaskListRef.current) {
+      wasAtTaskBottomRef.current = isScrolledToBottom(subtaskListRef.current)
+    }
+    setSubtask(e.target.value)
+  }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLLabelElement>) => {
     if (e.key !== 'Enter') return
@@ -76,7 +103,7 @@ const Subtask = (props: Props) => {
           value={subtask}
           ref={textareaRef}
           rows={1}
-          onChange={(e) => setSubtask(e.target.value)}
+          onChange={handleChange}
           aria-label="edit subtask input"
           data-testid="edit-subtask-input"
         />

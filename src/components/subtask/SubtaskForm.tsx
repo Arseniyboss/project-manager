@@ -1,19 +1,21 @@
 import { FaCircleCheck } from 'react-icons/fa6'
 import { isMobile } from 'react-device-detect'
-import { KeyboardEvent, useState, useRef, useEffect } from 'react'
+import { RefObject, KeyboardEvent, useState, useRef, useEffect } from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { useOnClickOutside } from '@/hooks/useOnClickOutside'
 import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { useSubtaskContext } from '@/hooks/useSubtaskContext'
+import { scrollToBottom } from '@/utils'
 import { CardBody } from '@/components/task/styles'
 import { Button } from '@/styles'
 import { SubtaskCard, CheckboxWrapper } from './styles'
 
 type Props = {
   taskId: string
+  subtaskListRef: RefObject<HTMLUListElement | null>
 }
 
-const SubtaskForm = ({ taskId }: Props) => {
+const SubtaskForm = ({ taskId, subtaskListRef }: Props) => {
   const [title, setTitle] = useState<string>('')
 
   const subtaskRef = useRef<HTMLLIElement>(null)
@@ -30,6 +32,10 @@ const SubtaskForm = ({ taskId }: Props) => {
       textareaRef.current?.focus()
     }
   }, [isAdding])
+
+  useEffect(() => {
+    scrollToBottom(subtaskListRef.current)
+  }, [title])
 
   const handleAddSubtask = () => {
     const trimmedTitle = title.trim()
