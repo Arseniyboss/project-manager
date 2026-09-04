@@ -1,10 +1,11 @@
 import { FaCircleCheck } from 'react-icons/fa6'
 import { isMobile } from 'react-device-detect'
-import { KeyboardEvent, useState, useRef, useEffect } from 'react'
+import { RefObject, KeyboardEvent, useState, useRef, useEffect } from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { useTaskContext } from '@/hooks/useTaskContext'
 import { useOnClickOutside } from '@/hooks/useOnClickOutside'
 import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
+import { scrollToBottom } from '@/utils'
 import { Status } from '@/types/task'
 import { Button } from '@/styles'
 import { Card, CardBody } from './styles'
@@ -12,9 +13,10 @@ import { Card, CardBody } from './styles'
 type Props = {
   status: Status
   boardId: string
+  taskListRef: RefObject<HTMLUListElement | null>
 }
 
-const TaskForm = ({ status, boardId }: Props) => {
+const TaskForm = ({ status, boardId, taskListRef }: Props) => {
   const [title, setTitle] = useState<string>('')
 
   const taskRef = useRef<HTMLLIElement>(null)
@@ -31,6 +33,10 @@ const TaskForm = ({ status, boardId }: Props) => {
       textareaRef.current?.focus()
     }
   }, [isAdding])
+
+  useEffect(() => {
+    scrollToBottom(taskListRef.current)
+  }, [title])
 
   const handleAddTask = () => {
     const trimmedTitle = title.trim()

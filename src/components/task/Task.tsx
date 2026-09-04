@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef, RefObject, ChangeEvent } from 'react'
 import { DraggableProvided } from '@hello-pangea/dnd'
 import { LuClipboardPlus } from 'react-icons/lu'
 import { FaTrashAlt } from 'react-icons/fa'
@@ -8,6 +8,7 @@ import { useSubtaskContext } from '@/hooks/useSubtaskContext'
 import { useBoardContext } from '@/hooks/useBoardContext'
 import { useAutoResizeTextArea } from '@/hooks/useAutosizeTextArea'
 import { useUpdateEffect } from '@/hooks/useUpdateEffect'
+import { scrollToBottom, isScrolledToBottom } from '@/utils'
 import { Task as TaskProps } from '@/types/task'
 import { Button } from '@/styles'
 import { Card, CardBody, CardFooter, IconGroup, Tag } from './styles'
@@ -16,6 +17,7 @@ import DueDate from './DueDate'
 
 type CustomProps = {
   showAllTasks?: boolean
+  taskListRef: RefObject<HTMLUListElement | null>
 }
 
 type Props = TaskProps & DraggableProvided & CustomProps
@@ -29,12 +31,14 @@ const Task = (props: Props) => {
     showAllTasks,
     draggableProps,
     dragHandleProps,
+    taskListRef,
     innerRef,
   } = props
 
   const [task, setTask] = useState<string>(title)
 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const wasAtBoardBottomRef = useRef<boolean>(false)
 
   const { themeStyles } = useTheme()
   const { deleteTask, editTask } = useTaskContext()
@@ -52,6 +56,19 @@ const Task = (props: Props) => {
     editTask(id, trimmedTask)
   }, [task])
 
+  useEffect(() => {
+    if (wasAtBoardBottomRef.current) {
+      scrollToBottom(taskListRef.current)
+    }
+  }, [task])
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (taskListRef.current) {
+      wasAtBoardBottomRef.current = isScrolledToBottom(taskListRef.current)
+    }
+    setTask(e.target.value)
+  }
+
   return (
     <Card
       {...dragHandleProps}
@@ -65,7 +82,7 @@ const Task = (props: Props) => {
           value={task}
           ref={textareaRef}
           rows={1}
-          onChange={(e) => setTask(e.target.value)}
+          onChange={handleChange}
           aria-label="edit task input"
           data-testid="edit-task-input"
         />

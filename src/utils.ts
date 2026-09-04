@@ -35,3 +35,11 @@ export const dateLocalizer = dateFnsLocalizer({
   format,
   getDay,
 })
+
+export const scrollToBottom = (element: HTMLElement | null) => {
+  element?.scrollTo({ top: element.scrollHeight })
+}
+
+export const isScrolledToBottom = (element: HTMLElement) => {
+  return element.scrollHeight - element.scrollTop <= element.clientHeight
+}

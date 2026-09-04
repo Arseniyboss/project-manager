@@ -1,7 +1,10 @@
 import { Droppable, Draggable } from '@hello-pangea/dnd'
 import { FaPlus } from 'react-icons/fa'
+import { useRef } from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { useTaskContext } from '@/hooks/useTaskContext'
+import { useUpdateEffect } from '@/hooks/useUpdateEffect'
+import { scrollToBottom } from '@/utils'
 import { Status } from '@/types/task'
 import { Button } from '@/styles'
 import { BoardContainer, BoardHeader } from './styles'
@@ -16,6 +19,8 @@ type Props = {
 }
 
 const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
+  const taskListRef = useRef<HTMLUListElement>(null)
+
   const {
     isAdding,
     isDatePickerOpen,
@@ -33,6 +38,12 @@ const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
     : filterBoardTasks(status, boardId)
 
   const isDragDisabled = isAdding || isSubtaskHovered || isDatePickerOpen || showAllTasks
+
+  useUpdateEffect(() => {
+    if (isCurrentColumn(status)) {
+      scrollToBottom(taskListRef.current)
+    }
+  }, [isAdding])
   return (
     <BoardContainer $themeStyles={themeStyles}>
       <BoardHeader>
@@ -51,7 +62,10 @@ const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
         {(provided) => (
           <ul
             {...provided.droppableProps}
-            ref={provided.innerRef}
+            ref={(node) => {
+              provided.innerRef(node)
+              taskListRef.current = node
+            }}
             data-testid="task-list"
           >
             {tasks.map((task, index) => (
@@ -65,6 +79,7 @@ const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
                   <Task
                     key={task.id}
                     showAllTasks={showAllTasks}
+                    taskListRef={taskListRef}
                     {...task}
                     {...provided}
                   />
@@ -72,7 +87,7 @@ const BoardColumn = ({ status, boardId, showAllTasks }: Props) => {
               </Draggable>
             ))}
             {isAdding && isCurrentColumn(status) && (
-              <TaskForm status={status} boardId={boardId} />
+              <TaskForm status={status} boardId={boardId} taskListRef={taskListRef} />
             )}
             {provided.placeholder}
           </ul>

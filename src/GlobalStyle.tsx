@@ -45,6 +45,10 @@ const GlobalStyle = createGlobalStyle<Props>`
     line-height: 1.17;
   }
 
+  textarea {
+    field-sizing: content;
+  }
+
   .sidebarIcon {
     font-size: 1.5rem;
     flex-shrink: 0;
